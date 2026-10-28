@@ -1,775 +1,482 @@
-<!DOCTYPE html>
-<html lang="es">
-<head>
-<meta charset="UTF-8">
-<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
-<title>Examen — Patrimonio y Bienes</title>
-<link rel="preconnect" href="https://fonts.googleapis.com">
-<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-<link href="https://fonts.googleapis.com/css2?family=Lora:ital,wght@0,400;0,500;0,600;1,400&family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
+<!doctype html><html><head><meta charset=utf8><meta name=viewport content="width=device-width,initial-scale=1,viewport-fit=cover"><style>:root{color-scheme:light;box-sizing:border-box;padding-top:env(safe-area-inset-top,0px);padding-bottom:env(safe-area-inset-bottom,0px)}html{scroll-padding-top:env(safe-area-inset-top,0px)}body{margin:0;padding:0;font:14px -apple-system,BlinkMacSystemFont,sans-serif;background:#fff;color:#000}img{max-width:100%}[hidden]:not([hidden=until-found i]){display:none!important}</style></head><body>
+<title>Examen de Bienes y Derechos Reales</title>
+<meta name="claude:viewport-fit-sides" content="cover">
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=IBM+Plex+Mono:wght@400;500&family=IBM+Plex+Sans:wght@400;500;600&family=Literata:opsz,wght@7..72,500;7..72,600&display=swap">
 <style>
-  :root{
-    --ink:#12202E;
-    --ink-deep:#0B161F;
-    --paper:#F1E7CF;
-    --paper-dim:#E7DBBC;
-    --text:#2A2115;
-    --text-soft:#5A4E3B;
-    --gold:#B08A3E;
-    --gold-bright:#D2A94F;
-    --oxblood:#8C2C31;
-    --forest:#3E6B4C;
-    --rule: rgba(176,138,62,0.35);
-    box-sizing:border-box;
-    padding-top: env(safe-area-inset-top, 0px);
-    padding-bottom: env(safe-area-inset-bottom, 0px);
+/* Layout: una columna de lectura (máx. 46rem), tarjeta de pregunta al centro, navegación de reactivos debajo. */
+:root {
+  --bg: #F1F4F8;
+  --surface: #FFFFFF;
+  --fg: #14202D;
+  --muted: #546577;
+  --line: #D3DBE5;
+  --accent: #23468C;
+  --accent-fg: #FFFFFF;
+  --done-bg: #E3EAF6;
+  --soft: #F5F7FA;
+  --good: #19704A;
+  --good-bg: #E1F2E8;
+  --warn: #85530A;
+  --warn-bg: #FAEFD7;
+  --bad: #AF2820;
+  --bad-bg: #FBE5E3;
+  --f-display: "Literata", Georgia, "Times New Roman", serif;
+  --f-body: "IBM Plex Sans", system-ui, -apple-system, "Segoe UI", sans-serif;
+  --f-mono: "IBM Plex Mono", ui-monospace, "SF Mono", Menlo, Consolas, monospace;
+}
+@media (prefers-color-scheme: dark) {
+  :root:not([data-theme="light"]) {
+    --bg: #0E1621;
+    --surface: #162130;
+    --fg: #E6ECF3;
+    --muted: #9BADC0;
+    --line: #29384A;
+    --accent: #8EADEE;
+    --accent-fg: #0E1621;
+    --done-bg: #1C2C48;
+    --soft: #101A27;
+    --good: #6FD6A0;
+    --good-bg: #123022;
+    --warn: #EBB85E;
+    --warn-bg: #382B10;
+    --bad: #FF908A;
+    --bad-bg: #3D1B19;
+    color-scheme: dark;
   }
-  *{box-sizing:border-box;}
-  html{scroll-padding-top: env(safe-area-inset-top, 0px); }
-  html,body{height:100%;}
-  body{
-    margin:0;
-    background:
-      radial-gradient(ellipse at 20% -10%, rgba(210,169,79,0.08), transparent 45%),
-      var(--ink);
-    color:var(--paper);
-    font-family:'Lora', Georgia, serif;
-    -webkit-font-smoothing:antialiased;
-  }
-  @media (prefers-color-scheme: dark){
-    :root:not([data-theme="light"]){ --ink:#0B161F; }
-  }
-  :root[data-theme="dark"]{ --ink:#0B161F; }
+}
+:root[data-theme="dark"] {
+  --bg: #0E1621;
+  --surface: #162130;
+  --fg: #E6ECF3;
+  --muted: #9BADC0;
+  --line: #29384A;
+  --accent: #8EADEE;
+  --accent-fg: #0E1621;
+  --done-bg: #1C2C48;
+  --soft: #101A27;
+  --good: #6FD6A0;
+  --good-bg: #123022;
+  --warn: #EBB85E;
+  --warn-bg: #382B10;
+  --bad: #FF908A;
+  --bad-bg: #3D1B19;
+  color-scheme: dark;
+}
 
-  .wrap{
-    max-width:740px;
-    margin:0 auto;
-    padding:48px 22px 120px;
-  }
+* { box-sizing: border-box; }
+body {
+  background: var(--bg);
+  color: var(--fg);
+  font-family: var(--f-body);
+  font-size: 1rem;
+  line-height: 1.55;
+  padding-block: 1.5rem 3rem;
+  padding-left: max(16px, env(safe-area-inset-left, 0px));
+  padding-right: max(16px, env(safe-area-inset-right, 0px));
+}
+.wrap { max-width: 46rem; margin: 0 auto; display: flex; flex-direction: column; gap: 1rem; }
+.wrap > * { min-width: 0; }
+.mono { font-family: var(--f-mono); font-variant-numeric: tabular-nums; }
+.muted { color: var(--muted); }
+.eyebrow { margin: 0; font-family: var(--f-mono); font-size: .75rem; letter-spacing: .08em; text-transform: uppercase; color: var(--muted); }
+h1, h2, h3 { font-family: var(--f-display); font-weight: 600; text-wrap: balance; margin: 0; }
+p { margin: 0; }
 
-  /* ---------- Header ---------- */
-  header.hero{
-    text-align:center;
-    padding-bottom:36px;
-    margin-bottom:34px;
-    border-bottom:1px solid var(--rule);
-  }
-  .seal{
-    width:56px;height:56px;margin:0 auto 18px;
-    color:var(--gold-bright);
-    opacity:0.9;
-  }
-  .kicker{
-    font-family:'Inter',sans-serif;
-    font-size:12.5px;
-    letter-spacing:0.14em;
-    color:var(--gold-bright);
-    font-weight:600;
-    margin-bottom:10px;
-  }
-  h1{
-    font-family:'Lora',serif;
-    font-weight:600;
-    font-size:clamp(28px,5vw,38px);
-    line-height:1.15;
-    margin:0 0 12px;
-    color:var(--paper);
-  }
-  .subtitle{
-    font-family:'Inter',sans-serif;
-    font-size:14.5px;
-    color:#B9C2C9;
-    max-width:520px;
-    margin:0 auto 4px;
-    line-height:1.6;
-  }
-  .instructions{
-    font-family:'Inter',sans-serif;
-    font-size:13.5px;
-    color:#8FA0AC;
-    max-width:520px;
-    margin:16px auto 0;
-    line-height:1.65;
-  }
+.card { background: var(--surface); border: 1px solid var(--line); border-radius: 6px; padding: 1.25rem; display: flex; flex-direction: column; gap: 1rem; }
+h1 { font-size: 1.9rem; line-height: 1.2; }
+.lead { color: var(--muted); }
+.facts { margin: 0; padding: 0; list-style: none; display: flex; flex-direction: column; gap: .75rem; }
+.facts li { padding-left: 1rem; position: relative; max-width: 65ch; }
+.facts li::before { content: ""; position: absolute; left: 0; top: .7em; width: .4rem; height: 1px; background: var(--muted); }
+.check { display: flex; align-items: center; gap: .6rem; min-height: 2.75rem; cursor: pointer; }
+.check input { width: 1.1rem; height: 1.1rem; accent-color: var(--accent); }
 
-  /* ---------- Progress ---------- */
-  .progress-bar{
-    position:sticky;
-    top:0;
-    z-index:5;
-    background:linear-gradient(to bottom, var(--ink) 78%, transparent);
-    padding:14px 0 10px;
-    margin-bottom:8px;
-  }
-  .progress-track{
-    height:3px;
-    background:rgba(176,138,62,0.22);
-    border-radius:2px;
-    overflow:hidden;
-  }
-  .progress-fill{
-    height:100%;
-    width:0%;
-    background:var(--gold-bright);
-    transition:width .25s ease;
-  }
-  .progress-label{
-    font-family:'Inter',sans-serif;
-    font-size:11.5px;
-    color:#8FA0AC;
-    margin-top:7px;
-    letter-spacing:0.03em;
-  }
+.row { display: flex; flex-wrap: wrap; gap: .75rem; }
+.btn { font: inherit; font-weight: 500; min-height: 2.75rem; padding: .5rem 1.1rem; border-radius: 4px; border: 1px solid var(--line); background: var(--surface); color: var(--fg); cursor: pointer; }
+.btn:hover:not(:disabled) { border-color: var(--accent); }
+.btn:disabled { opacity: .45; cursor: not-allowed; }
+.btn.primary { background: var(--accent); border-color: var(--accent); color: var(--accent-fg); }
+.btn.primary:hover:not(:disabled) { filter: brightness(1.08); }
+.btn.ghost { background: transparent; }
+:is(.btn, .chip, textarea, input, summary):focus-visible { outline: 2px solid var(--accent); outline-offset: 2px; }
 
-  /* ---------- Question card ---------- */
-  .card{
-    background:var(--paper);
-    color:var(--text);
-    border-radius:3px;
-    padding:26px 28px 24px;
-    margin-bottom:22px;
-    position:relative;
-    border-left:3px solid var(--gold);
-    box-shadow:0 1px 0 rgba(0,0,0,0.25);
-  }
-  .card .num{
-    font-family:'Inter',sans-serif;
-    font-size:11.5px;
-    font-weight:700;
-    letter-spacing:0.06em;
-    color:var(--gold);
-    display:block;
-    margin-bottom:9px;
-  }
-  .card .q{
-    font-size:17px;
-    line-height:1.5;
-    font-weight:600;
-    margin:0 0 14px;
-    color:var(--text);
-  }
-  textarea{
-    width:100%;
-    min-height:78px;
-    resize:vertical;
-    font-family:'Lora',serif;
-    font-size:15px;
-    line-height:1.55;
-    color:var(--text);
-    background:#FBF6E9;
-    border:1px solid var(--paper-dim);
-    border-radius:2px;
-    padding:12px 13px;
-    outline:none;
-    transition:border-color .15s ease, box-shadow .15s ease;
-  }
-  textarea:focus{
-    border-color:var(--gold);
-    box-shadow:0 0 0 3px rgba(176,138,62,0.18);
-  }
-  textarea::placeholder{ color:#A99C7E; }
+.progress { display: flex; flex-direction: column; gap: .5rem; }
+.progress .meta { display: flex; justify-content: space-between; gap: 1rem; font-size: .8125rem; }
+.bar { height: 4px; background: var(--line); border-radius: 2px; overflow: hidden; }
+.bar i { display: block; height: 100%; background: var(--accent); }
 
-  /* ---------- Feedback ---------- */
-  .feedback{
-    margin-top:16px;
-    padding-top:16px;
-    border-top:1px dashed var(--paper-dim);
-    display:none;
-  }
-  .feedback.show{ display:block; animation:fadeIn .3s ease; }
-  @keyframes fadeIn{ from{opacity:0; transform:translateY(-4px);} to{opacity:1; transform:translateY(0);} }
+.qtext { font-size: 1.4rem; line-height: 1.3; }
+.hint { color: var(--muted); font-size: .9rem; }
+textarea { width: 100%; min-height: 9rem; resize: vertical; font: inherit; line-height: 1.5; padding: .75rem .85rem; border: 1px solid var(--line); border-radius: 4px; background: var(--soft); color: var(--fg); }
+textarea.big { min-height: 17rem; }
+textarea:focus { background: var(--surface); }
+.sr { position: absolute; width: 1px; height: 1px; overflow: hidden; clip: rect(0 0 0 0); white-space: nowrap; }
 
-  .score-row{
-    display:flex;
-    align-items:center;
-    gap:10px;
-    margin-bottom:12px;
-    font-family:'Inter',sans-serif;
-  }
-  .score-pill{
-    font-size:12px;
-    font-weight:700;
-    letter-spacing:0.02em;
-    padding:4px 11px;
-    border-radius:20px;
-    color:#fff;
-  }
-  .score-pill.full{ background:var(--forest); }
-  .score-pill.partial{ background:#9C7A1F; }
-  .score-pill.low{ background:var(--oxblood); }
-  .score-pct{ font-size:12.5px; color:var(--text-soft); font-weight:600; }
+.nav { justify-content: space-between; }
+.chips { display: flex; flex-wrap: wrap; gap: .4rem; }
+.chip { min-width: 2.25rem; height: 2.25rem; padding: 0 .4rem; border: 1px solid var(--line); border-radius: 4px; background: var(--surface); color: var(--muted); font-family: var(--f-mono); font-size: .8125rem; cursor: pointer; }
+.chip.done { background: var(--done-bg); color: var(--fg); }
+.chip.cur { background: var(--accent); border-color: var(--accent); color: var(--accent-fg); }
+.confirm { border: 1px solid var(--warn); background: var(--warn-bg); color: var(--fg); border-radius: 6px; padding: 1rem; display: flex; flex-direction: column; gap: .75rem; }
 
-  .concept-list{
-    list-style:none;
-    margin:0 0 14px;
-    padding:0;
-    display:flex;
-    flex-wrap:wrap;
-    gap:7px;
-  }
-  .concept-list li{
-    font-family:'Inter',sans-serif;
-    font-size:12px;
-    padding:4px 10px 4px 8px;
-    border-radius:3px;
-    display:flex;
-    align-items:center;
-    gap:5px;
-    line-height:1.3;
-  }
-  .concept-list li.hit{ background:rgba(62,107,76,0.13); color:#2E5138; }
-  .concept-list li.miss{ background:rgba(140,44,49,0.1); color:#7A2529; }
-  .concept-list li .mark{ font-weight:700; }
+.score .big { font-family: var(--f-display); font-weight: 600; font-size: 3.5rem; line-height: 1; }
+.score .big small { font-size: 1.25rem; color: var(--muted); font-weight: 500; }
+.tally { display: flex; flex-wrap: wrap; gap: .5rem; }
+.pill { display: inline-flex; align-items: center; gap: .35rem; font-size: .8125rem; font-weight: 600; padding: .15rem .6rem; border-radius: 99px; white-space: nowrap; }
+.pill.ok { background: var(--good-bg); color: var(--good); }
+.pill.partial { background: var(--warn-bg); color: var(--warn); }
+.pill.bad { background: var(--bad-bg); color: var(--bad); }
+.seg { display: flex; gap: .5rem; flex-wrap: wrap; }
+.seg .btn[aria-pressed="true"] { background: var(--accent); border-color: var(--accent); color: var(--accent-fg); }
 
-  .model-answer{
-    font-size:14px;
-    line-height:1.65;
-    color:var(--text-soft);
-    background:rgba(176,138,62,0.09);
-    border-radius:2px;
-    padding:12px 14px;
-  }
-  .model-answer strong{
-    display:block;
-    font-family:'Inter',sans-serif;
-    font-size:11px;
-    letter-spacing:0.05em;
-    color:var(--gold);
-    margin-bottom:6px;
-    text-transform:none;
-  }
-
-  /* ---------- Actions ---------- */
-  .actions{
-    position:sticky;
-    bottom:0;
-    padding:16px 0 calc(16px + env(safe-area-inset-bottom, 0px));
-    background:linear-gradient(to top, var(--ink) 60%, transparent);
-    display:flex;
-    gap:10px;
-    justify-content:center;
-  }
-  button{
-    font-family:'Inter',sans-serif;
-    font-size:14.5px;
-    font-weight:600;
-    padding:13px 26px;
-    border-radius:3px;
-    border:none;
-    cursor:pointer;
-    transition:transform .12s ease, opacity .12s ease;
-  }
-  button:active{ transform:scale(0.98); }
-  #gradeBtn{
-    background:var(--gold-bright);
-    color:#2A1E0A;
-  }
-  #gradeBtn:hover{ opacity:0.92; }
-  #resetBtn{
-    background:transparent;
-    color:#B9C2C9;
-    border:1px solid rgba(185,194,201,0.3);
-  }
-  #resetBtn:hover{ border-color:rgba(185,194,201,0.6); }
-
-  /* ---------- Summary ---------- */
-  #summary{
-    display:none;
-    background:var(--paper);
-    color:var(--text);
-    border-radius:3px;
-    padding:26px 28px;
-    margin-bottom:30px;
-    border-left:3px solid var(--gold-bright);
-  }
-  #summary.show{ display:block; }
-  .grade-big{
-    font-family:'Lora',serif;
-    font-size:52px;
-    font-weight:600;
-    line-height:1;
-    color:var(--ink);
-  }
-  .grade-row{
-    display:flex;
-    align-items:baseline;
-    gap:16px;
-    margin-bottom:10px;
-    flex-wrap:wrap;
-  }
-  .grade-caption{
-    font-family:'Inter',sans-serif;
-    font-size:13px;
-    color:var(--text-soft);
-  }
-  .grade-verdict{
-    font-family:'Inter',sans-serif;
-    font-weight:700;
-    font-size:15px;
-    color:var(--oxblood);
-  }
-  .grade-verdict.pass{ color:var(--forest); }
-
-  footer{
-    text-align:center;
-    font-family:'Inter',sans-serif;
-    font-size:11.5px;
-    color:#5C6A75;
-    margin-top:10px;
-  }
-
-  @media (max-width:480px){
-    .wrap{ padding:32px 15px 110px; }
-    .card{ padding:20px 18px 18px; }
-  }
+.res { background: var(--surface); border: 1px solid var(--line); border-radius: 6px; padding: 1.1rem; display: flex; flex-direction: column; gap: .8rem; }
+.res header { display: flex; justify-content: space-between; align-items: center; gap: .75rem; flex-wrap: wrap; }
+.res h3 { font-size: 1.1rem; line-height: 1.35; }
+.blk { border-radius: 4px; padding: .7rem .85rem; display: flex; flex-direction: column; gap: .3rem; background: var(--soft); border: 1px solid var(--line); }
+.blk.correct { background: var(--good-bg); border-color: transparent; }
+.lbl { font-family: var(--f-mono); font-size: .72rem; letter-spacing: .08em; text-transform: uppercase; color: var(--muted); }
+.blk.correct .lbl { color: var(--good); }
+.user { white-space: pre-wrap; overflow-wrap: anywhere; }
+.ansline { max-width: 65ch; }
+.ansline.li { padding-left: 1.1rem; text-indent: -1.1rem; }
+.note { font-size: .85rem; color: var(--muted); }
+details.res-d summary { cursor: pointer; font-weight: 500; color: var(--accent); min-height: 2rem; display: flex; align-items: center; }
+details.res-d[open] summary { margin-bottom: .5rem; }
+details.res-d .blk { margin-top: 0; }
+@media (max-width: 480px) {
+  h1 { font-size: 1.55rem; }
+  .qtext { font-size: 1.25rem; }
+  .score .big { font-size: 3rem; }
+  .btn { flex: 1 1 auto; }
+}
+@media (prefers-reduced-motion: no-preference) {
+  .bar i { transition: width .25s ease; }
+}
 </style>
-</head>
-<body>
-<div class="wrap">
 
-  <header class="hero">
-    <svg class="seal" viewBox="0 0 48 48" fill="none" xmlns="http://www.w3.org/2000/svg">
-      <path d="M24 4V44" stroke="currentColor" stroke-width="1.4"/>
-      <path d="M8 12H40" stroke="currentColor" stroke-width="1.4"/>
-      <path d="M8 12L4 22C4 25 8 27 8 27C8 27 12 25 12 22L8 12Z" stroke="currentColor" stroke-width="1.4" stroke-linejoin="round"/>
-      <path d="M40 12L36 22C36 25 40 27 40 27C40 27 44 25 44 22L40 12Z" stroke="currentColor" stroke-width="1.4" stroke-linejoin="round"/>
-      <path d="M17 44H31" stroke="currentColor" stroke-width="1.4"/>
-      <circle cx="24" cy="8" r="2.4" stroke="currentColor" stroke-width="1.4"/>
-    </svg>
-    <div class="kicker">Derecho Civil II · Rojina Villegas</div>
-    <h1>Examen de patrimonio y bienes</h1>
-    <p class="subtitle">Responde cada reactivo con el concepto preciso y concreto tal como aparece en la guía. La calificación evalúa si tu respuesta contiene las ideas clave, no la redacción exacta.</p>
-    <p class="instructions">Escribe en tus propias palabras pero sin omitir los términos técnicos. Al terminar, pulsa «Calificar examen» para ver tu resultado, artículo por artículo.</p>
-  </header>
-
-  <div class="progress-bar">
-    <div class="progress-track"><div class="progress-fill" id="progressFill"></div></div>
-    <div class="progress-label" id="progressLabel">0 de 21 respondidas</div>
-  </div>
-
-  <div id="summary">
-    <div class="grade-row">
-      <div class="grade-big" id="gradeBig">0.0</div>
-      <div>
-        <div class="grade-verdict" id="gradeVerdict">—</div>
-        <div class="grade-caption" id="gradeCaption">Calificación sobre 10 · <span id="gradePct">0%</span> de aciertos conceptuales</div>
-      </div>
-    </div>
-    <div class="grade-caption">Revisa cada reactivo abajo: en verde los conceptos que incluiste, en rojo los que faltaron.</div>
-  </div>
-
-  <div id="questions"></div>
-
-  <div class="actions">
-    <button id="gradeBtn" type="button">Calificar examen</button>
-    <button id="resetBtn" type="button">Reiniciar examen</button>
-  </div>
-
-  <footer>21 reactivos · Basado en el compendio de Patrimonio y Bienes</footer>
-</div>
+<div class="wrap" id="app"></div>
 
 <script>
-(function(){
+// ---------- Preguntas y criterios de calificación ----------
+// Cada pregunta: t = enunciado, ans = respuesta de la guía, k = conceptos clave (cada uno con
+// formas equivalentes de decirlo), must = conceptos indispensables.
+const Q = [
+  { t: "¿Qué es el patrimonio?",
+    ans: ["El patrimonio se ha definido como un conjunto de obligaciones y derechos susceptibles de una valorización pecuniaria, que constituyen una universalidad de derecho."],
+    k: [["conjunto"], ["obligacion","deuda","pasivo","carga"], ["derecho","bien","activo"], ["valorizacion","valoracion","pecuniaria","dinero","economica","estimable","apreciable","valuable","monetaria"], ["universalidad"]] },
 
-  // ---------- Data: questions, required concept groups, model answers ----------
-  // each group: { label, variants[] }. minRequired: how many groups needed for 100% (default = all groups)
-  var QUESTIONS = [
-    {
-      q: "Define el concepto de patrimonio.",
-      groups: [
-        {label:"conjunto de derechos y obligaciones", variants:["conjunto de derechos y obligaciones","derechos y obligaciones"]},
-        {label:"pertenecientes a una persona", variants:["pertenecientes a una persona","de una persona","a una persona"]},
-        {label:"apreciables en dinero", variants:["apreciables en dinero","valorizacion pecuniaria","valor pecuniario","susceptibles de valorizacion","susceptibles de una valorizacion"]},
-        {label:"universalidad de derecho", variants:["universalidad de derecho","universalidad juridica"]}
-      ],
-      model: "El patrimonio es el conjunto de derechos y obligaciones pertenecientes a una persona, apreciables en dinero, que constituyen una universalidad de derecho."
-    },
-    {
-      q: "¿Cuáles son los dos elementos del patrimonio y qué integra cada uno?",
-      groups: [
-        {label:"activo", variants:["activo"]},
-        {label:"activo = bienes y derechos", variants:["bienes y derechos","conjunto de bienes y derechos"]},
-        {label:"pasivo", variants:["pasivo"]},
-        {label:"pasivo = obligaciones y cargas", variants:["obligaciones y cargas","conjunto de obligaciones y cargas"]}
-      ],
-      model: "Activo: conjunto de bienes y derechos apreciables en dinero. Pasivo: conjunto de obligaciones y cargas también susceptibles de valorización pecuniaria."
-    },
-    {
-      q: "¿Cómo se llaman la teoría clásica y la teoría moderna del patrimonio?",
-      groups: [
-        {label:"clásica = patrimonio-personalidad", variants:["patrimonio personalidad","patrimonio-personalidad"]},
-        {label:"moderna = patrimonio-afectación", variants:["patrimonio afectacion","patrimonio-afectacion"]}
-      ],
-      model: "Teoría clásica: teoría del patrimonio-personalidad. Teoría moderna: teoría del patrimonio-afectación."
-    },
-    {
-      q: "Explica la diferencia entre la teoría clásica y la teoría moderna del patrimonio.",
-      groups: [
-        {label:"clásica: unido a la persona / emanación de la personalidad", variants:["emanacion de la personalidad","unido necesariamente a la persona","union necesaria"]},
-        {label:"clásica: universalidad jurídica", variants:["universalidad juridica"]},
-        {label:"moderna: ya no confunde patrimonio con personalidad", variants:["no confunde patrimonio con personalidad","ya no confunde"]},
-        {label:"moderna: destino / fin jurídico / masas autónomas", variants:["destino que tengan","fin juridico","masas autonomas","patrimonios de destino"]}
-      ],
-      model: "Teoría clásica: el patrimonio está unido necesariamente a la persona; es una emanación de la personalidad y constituye una universalidad jurídica. Teoría moderna: ya no confunde patrimonio con personalidad; toma en cuenta el destino de ciertos bienes, derechos y obligaciones respecto de un fin jurídico, pudiendo existir masas autónomas destinadas a fines determinados."
-    },
-    {
-      q: "¿A qué autores corresponde la teoría clásica y a qué escuela pertenecen?",
-      groups: [
-        {label:"Aubry", variants:["aubry"]},
-        {label:"Rau", variants:["rau"]},
-        {label:"escuela de la exégesis / escuela clásica francesa", variants:["exegesis","escuela clasica francesa"]}
-      ],
-      model: "La teoría clásica o del patrimonio-personalidad corresponde a Aubry y Rau, dentro de la escuela clásica francesa o escuela de la exégesis."
-    },
-    {
-      q: "¿Qué autores desarrollaron la teoría moderna y quién elaboró la teoría de los patrimonios de destino?",
-      groups: [
-        {label:"Planiol", variants:["planiol"]},
-        {label:"Ripert", variants:["ripert"]},
-        {label:"Picard", variants:["picard"]},
-        {label:"Brinz — patrimonios de destino", variants:["brinz"]}
-      ],
-      model: "La teoría moderna o del patrimonio-afectación es desarrollada por Planiol, Ripert y Picard. Brinz elaboró la teoría de los patrimonios de destino."
-    },
-    {
-      q: "Menciona la clasificación de los bienes muebles e inmuebles.",
-      groups: [
-        {label:"muebles por su naturaleza", variants:["muebles por su naturaleza","muebles por naturaleza"]},
-        {label:"muebles por disposición de la ley", variants:["muebles por disposicion de la ley","disposicion de la ley"]},
-        {label:"inmuebles por naturaleza", variants:["inmuebles por naturaleza"]},
-        {label:"inmuebles por destino", variants:["inmuebles por destino"]},
-        {label:"inmuebles por el objeto al que se aplican", variants:["inmuebles por el objeto","objeto al cual se aplican","objeto al que se aplican"]}
-      ],
-      model: "Muebles: por su naturaleza y por disposición de la ley. Inmuebles: por naturaleza, por destino y por el objeto al cual se aplican."
-    },
-    {
-      q: "¿Qué es una universalidad jurídica y qué relación tiene con el patrimonio?",
-      groups: [
-        {label:"conjunto de bienes, derechos, obligaciones y cargas", variants:["bienes, derechos, obligaciones y cargas","conjunto de bienes","derechos y obligaciones y cargas"]},
-        {label:"apreciables en dinero", variants:["apreciables en dinero"]},
-        {label:"el patrimonio es la universalidad jurídica por excelencia", variants:["universalidad juridica por excelencia"]}
-      ],
-      model: "El conjunto de bienes, derechos, obligaciones y cargas de una persona apreciables en dinero constituye una universalidad jurídica. El patrimonio es la universalidad jurídica por excelencia."
-    },
-    {
-      q: "¿Cómo se caracteriza el derecho real?",
-      groups: [
-        {label:"poder jurídico", variants:["poder juridico"]},
-        {label:"actos de dominio o de administración", variants:["actos de dominio","de administracion","dominio o de administracion"]},
-        {label:"directa e inmediata sobre la cosa", variants:["directa e inmediata","de manera directa e inmediata"]}
-      ],
-      model: "El derecho real se caracteriza por un poder jurídico integrado por posibilidades normativas para realizar actos de dominio o de administración sobre la cosa, ejercido de manera directa e inmediata."
-    },
-    {
-      q: "Define los bienes fungibles y los no fungibles.",
-      groups: [
-        {label:"mismo poder liberatorio", variants:["mismo poder liberatorio","poder liberatorio"]},
-        {label:"instrumento de pago con el mismo valor", variants:["instrumento de pago"]},
-        {label:"pueden reemplazarse en el cumplimiento", variants:["reemplazados en el cumplimiento","pueden ser reemplazados"]},
-        {label:"no fungibles: no pueden sustituirse", variants:["no pueden ser sustituidos","no tienen ese mismo poder liberatorio"]}
-      ],
-      model: "Fungibles: tienen un mismo poder liberatorio, sirven como instrumento de pago con el mismo valor y pueden reemplazarse en el cumplimiento de obligaciones. No fungibles: no tienen ese poder liberatorio y, por sus características particulares, no pueden sustituirse por equivalentes."
-    },
-    {
-      q: "Define las cosas consumibles por el primer uso y las no consumibles.",
-      groups: [
-        {label:"consumibles: se agotan en la primera ocasión de uso", variants:["se agotan en la primera ocasion","agotan en la primera","primer uso"]},
-        {label:"consumibles: no permiten uso reiterado", variants:["no permiten un uso reiterado","no permiten uso constante"]},
-        {label:"no consumibles: permiten uso reiterado y constante", variants:["uso reiterado y constante","permiten un uso reiterado"]}
-      ],
-      model: "Cosas consumibles por el primer uso: se agotan en la primera ocasión en que se usan y no permiten un uso reiterado o constante (ejemplo: los comestibles). Cosas no consumibles: permiten un uso reiterado y constante."
-    },
-    {
-      q: "¿Cómo se clasifican los bienes de dominio público y cuáles son sus subdivisiones?",
-      groups: [
-        {label:"bienes de dominio público", variants:["dominio publico"]},
-        {label:"bienes de propiedad de los particulares", variants:["propiedad de los particulares","de los particulares"]},
-        {label:"bienes de uso común", variants:["uso comun"]},
-        {label:"bienes destinados a un servicio público", variants:["servicio publico"]},
-        {label:"bienes propios del Estado", variants:["propios del estado"]}
-      ],
-      model: "Se clasifican en bienes de dominio público y bienes propiedad de los particulares. Los de dominio público se subdividen en: bienes de uso común, bienes destinados a un servicio público y bienes propios del Estado. (El libro usa «uso común», no «uso popular»)."
-    },
-    {
-      q: "Define qué es la propiedad.",
-      groups: [
-        {label:"poder jurídico", variants:["poder juridico"]},
-        {label:"directa e inmediata sobre una cosa", variants:["directa e inmediata"]},
-        {label:"aprovecharla totalmente en sentido jurídico", variants:["aprovecharla totalmente","aprovechamiento total"]},
-        {label:"uso, disfrute o disposición", variants:["uso, disfrute o disposicion","uso disfrute y disposicion"]}
-      ],
-      model: "La propiedad es un poder jurídico que se ejerce en forma directa e inmediata sobre una cosa para aprovecharla totalmente en sentido jurídico, comprendiendo las facultades de uso, disfrute o disposición."
-    },
-    {
-      q: "Define qué es el dominio.",
-      groups: [
-        {label:"poder jurídico del propietario sobre la cosa", variants:["poder juridico que tiene el propietario","poder juridico del propietario"]},
-        {label:"uso, goce y disposición", variants:["uso, goce y disposicion","uso goce y disposicion"]}
-      ],
-      model: "El dominio es el poder jurídico que tiene el propietario sobre la cosa, comprendiendo las facultades de uso, goce y disposición."
-    },
-    {
-      q: "Menciona las formas especiales de transmisión del dominio (formas de adquirir la propiedad).",
-      groups: [
-        {label:"el contrato", variants:["contrato"]},
-        {label:"la herencia", variants:["herencia"]},
-        {label:"la ley", variants:["la ley"]},
-        {label:"la ocupación", variants:["ocupacion"]},
-        {label:"la prescripción", variants:["prescripcion"]},
-        {label:"la accesión", variants:["accesion"]},
-        {label:"la adjudicación", variants:["adjudicacion"]}
-      ],
-      model: "El contrato, la herencia, la ley, la ocupación, la prescripción, la accesión y la adjudicación. El contrato es el medio fundamental y de mayor importancia."
-    },
-    {
-      q: "¿Cómo se subdividen las formas de adquirir la propiedad?",
-      groups: [
-        {label:"a título universal", variants:["titulo universal"]},
-        {label:"a título particular", variants:["titulo particular"]},
-        {label:"adquisiciones primitivas", variants:["adquisiciones primitivas"]},
-        {label:"adquisiciones derivadas", variants:["adquisiciones derivadas"]},
-        {label:"a título oneroso", variants:["titulo oneroso"]},
-        {label:"a título gratuito", variants:["titulo gratuito"]}
-      ],
-      model: "En a título universal y a título particular; en adquisiciones primitivas y derivadas; y en a título oneroso y a título gratuito."
-    },
-    {
-      q: "Define bien en sentido jurídico y bien en sentido económico.",
-      groups: [
-        {label:"jurídico: objeto de apropiación", variants:["objeto de apropiacion"]},
-        {label:"económico: útil al hombre", variants:["util al hombre"]}
-      ],
-      model: "Bien en sentido jurídico: todo aquello que puede ser objeto de apropiación. Bien en sentido económico: todo aquello que puede ser útil al hombre."
-    },
-    {
-      q: "¿Qué establece el artículo 739 del Código Civil de Baja California?",
-      groups: [
-        {label:"menciona el artículo 739", variants:["739"]},
-        {label:"objeto de apropiación", variants:["objeto de apropiacion"]},
-        {label:"cosas no excluidas del comercio", variants:["no esten excluidas del comercio","excluidas del comercio"]}
-      ],
-      model: "El artículo 739 establece que pueden ser objeto de apropiación todas las cosas que no estén excluidas del comercio."
-    },
-    {
-      q: "¿Qué establece el artículo 821 del Código Civil de Baja California sobre la propiedad?",
-      groups: [
-        {label:"menciona el artículo 821", variants:["821"]},
-        {label:"gozar y disponer de la cosa", variants:["gozar y disponer"]},
-        {label:"con las limitaciones y modalidades que fijen las leyes", variants:["limitaciones y modalidades"]}
-      ],
-      model: "«El propietario de una cosa puede gozar y disponer de ella con las limitaciones y modalidades que fijen las leyes» (Art. 821)."
-    },
-    {
-      q: "¿Qué significa adquirir la propiedad?",
-      groups: [
-        {label:"incorporar un bien al patrimonio", variants:["incorpora un bien a su patrimonio","incorporar un bien"]},
-        {label:"adquiere el derecho de propiedad", variants:["derecho de propiedad"]},
-        {label:"por transmisión o por los medios que establece la ley", variants:["transmision","medios establecidos por la ley"]}
-      ],
-      model: "Es el acto mediante el cual una persona incorpora un bien a su patrimonio, adquiriendo sobre éste el derecho de propiedad, ya sea por una transmisión o por alguno de los medios establecidos por la ley."
-    },
-    {
-      q: "Menciona al menos cinco de los doce principios de Aubry y Rau sobre el patrimonio.",
-      minRequired: 5,
-      groups: [
-        {label:"1. El patrimonio es una universalidad jurídica", variants:["universalidad juridica"]},
-        {label:"2. Vinculación indisoluble entre patrimonio y persona", variants:["vinculacion indisoluble","patrimonio y persona"]},
-        {label:"3. Sentido subjetivo y objetivo", variants:["sentido subjetivo","sentido objetivo"]},
-        {label:"4. Toda persona debe tener un patrimonio", variants:["toda persona","debe tener un patrimonio"]},
-        {label:"5. El patrimonio es uno e indivisible", variants:["uno e indivisible"]},
-        {label:"6. Es inalienable durante la vida del titular", variants:["inalienable"]},
-        {label:"7. Entidad abstracta de orden intelectual", variants:["entidad abstracta","orden intelectual"]},
-        {label:"8. Relación patrimonio-persona semejante a la de propietario y cosa", variants:["semejante a la que tiene el propietario","bien determinado y el patrimonio sobre una universalidad"]},
-        {label:"9. Prenda tácita a favor del acreedor", variants:["prenda tacita"]},
-        {label:"10. Los acreedores comunes se pagan a prorrata", variants:["pagan a prorrata","a prorrata"]},
-        {label:"11. Transmisión integral (herencia) y parcial", variants:["transmision integral","transmision parcial"]},
-        {label:"12. Protección mediante tres acciones (enriquecimiento sin causa, petición de herencia, ausente)", variants:["enriquecimiento sin causa","peticion de herencia","declarado ausente"]}
-      ],
-      model: "1) Universalidad jurídica. 2) Vinculación indisoluble entre patrimonio y persona. 3) Sentido subjetivo y objetivo. 4) Toda persona debe tener patrimonio. 5) Es uno e indivisible. 6) Es inalienable en vida del titular. 7) Es una entidad abstracta de orden intelectual. 8) La relación con la persona es semejante a la del propietario con la cosa. 9) Es prenda tácita a favor del acreedor. 10) Los acreedores comunes se pagan a prorrata. 11) Transmisión integral (herencia) o parcial. 12) Protegido por la acción de enriquecimiento sin causa, la de petición de herencia y la del ausente."
+  { t: "¿Cuáles son los elementos del patrimonio?",
+    ans: ["Dos son los elementos del patrimonio: el activo y el pasivo. El activo se integra por el conjunto de bienes y derechos apreciables en dinero, y el pasivo por el conjunto de obligaciones y cargas también susceptibles de valorización pecuniaria."],
+    k: [["activo"], ["pasivo"], ["bien","derecho"], ["obligacion","carga","deuda"], ["dinero","pecuniaria","valorizacion","valoracion","apreciable","estimable","economica"]] },
+
+  { t: "¿Cuáles son las teorías sobre el patrimonio?", hint: "Explica en qué consiste cada una.",
+    ans: ["• Teoría clásica o del patrimonio-personalidad: vincula indisolublemente el patrimonio con la persona.",
+          "• Teoría moderna o del patrimonio-afectación: considera al patrimonio como un conjunto de bienes, derechos y obligaciones afectados a la realización de un fin jurídico-económico que le da autonomía propia."],
+    k: [["clasica","personalidad"], ["vincula","vinculo","indisoluble","vinculacion","liga","ligado","unido","relacion persona"], ["moderna","afectacion"], ["fin","finalidad","economico","afectado","destinado"], ["autonomia","autonomo","autonoma","independiente"]] },
+
+  { t: "¿Cuáles son los doce principios de Aubry y Rau?", hint: "Puedes escribirlos con tus palabras y en cualquier orden.", big: true,
+    ans: ["1. El patrimonio es un conjunto de elementos activos y pasivos estimables en dinero que constituyen una universalidad jurídica.",
+          "2. Hay una vinculación indisoluble entre patrimonio y persona.",
+          "3. El patrimonio tiene dos aspectos: en sentido subjetivo o posibilidad de adquirir en el futuro y en sentido objetivo, como conjunto de bienes.",
+          "4. Toda persona necesariamente debe tener un patrimonio.",
+          "5. El patrimonio es uno e indivisible.",
+          "6. El patrimonio es inalienable durante la vida del titular.",
+          "7. El patrimonio constituye una entidad abstracta de orden intelectual, independiente de los elementos que lo constituyen.",
+          "8. La relación entre patrimonio y persona es semejante a la que tiene el propietario sobre la cosa.",
+          "9. El patrimonio es la prenda tácita constituida en favor del acreedor.",
+          "10. Los acreedores ordinarios se pagarán a prorrata, independientemente de las fechas de constitución de sus créditos.",
+          "11. En la herencia hay una transmisión integral; fuera de ella, las transmisiones son parciales.",
+          "12. El patrimonio cuenta con protecciones jurídicas, como el enriquecimiento sin causa y la petición de herencia."],
+    k: [["universalidad","estimable","activo pasivo"], ["indisoluble","vinculacion","vinculo","indisolublemente"], ["subjetivo","objetivo","aspecto","futuro"], ["necesariamente","toda persona","persona tener","debe tener"], ["indivisible","unico","uno"], ["inalienable","enajenable","alienable","enajenacion"], ["abstracta","abstracto","intelectual","entidad"], ["propietario","semejante","semejanza"], ["prenda","tacita","garantia"], ["prorrata","prorata","fecha","acreedores ordinarios"], ["integral","parcial","transmision integral","transmisiones parciales"], ["enriquecimiento","peticion herencia","proteccion"]] },
+
+  { t: "¿Qué es la universalidad jurídica?",
+    ans: ["El conjunto de bienes, derechos, obligaciones y cargas de una persona apreciables en dinero, constituye una universalidad jurídica. La cual integra el patrimonio."],
+    k: [["conjunto"], ["bien","derecho","activo"], ["obligacion","carga","deuda","pasivo"], ["persona","titular","sujeto"], ["dinero","pecuniaria","apreciable","estimable","valorizacion","valoracion","economica"], ["patrimonio"]] },
+
+  { t: "¿Qué es la universalidad de hecho?",
+    ans: ["La universalidad de hecho es una entidad con vida independiente de sus elementos, pero se distingue de la universalidad jurídica en que sólo comprende una masa de bienes destinados a un fin económico."],
+    k: [["independiente","autonomo","autonoma","entidad"], ["elemento","componente"], ["masa bien","solo bien","solamente bien","unicamente bien","masa"], ["fin","finalidad","destinado","destino"], ["economico","economica","economia"], ["juridica","distingue","diferencia","distinta","diferente"]] },
+
+  { t: "¿Qué es un bien en sentido jurídico y en sentido económico?", hint: "Responde ambos sentidos.",
+    ans: ["• Sentido jurídico: la ley entiende por bien todo aquello que pueda ser objeto de apropiación.",
+          "• Sentido económico: bien es todo aquello que pueda ser útil al hombre."],
+    must: [1, 2],
+    k: [["ley","legal","legislacion"], ["apropiacion","apropiar","apropiable","apropiado","apropia"], ["util","utilidad","servir","sirve","provecho"], ["hombre","humano","individuo"]] },
+
+  { t: "¿Qué es el derecho real?",
+    ans: ["El derecho real tiene como contenido la apropiación, aprovechamiento y regulación de una riqueza, propia o ajena."],
+    k: [["apropiacion","apropiar","apropia"], ["aprovechamiento","aprovechar","aprovecha"], ["regulacion","regular","regula"], ["riqueza","cosa"], ["ajena","ajeno"]] },
+
+  { t: "¿Qué es el derecho personal o de crédito?",
+    ans: ["El derecho de crédito tiene como base la utilización de los servicios ajenos.",
+          "Las obligaciones de dar, hacer o no hacer son las tres formas típicas como el hombre puede servir al hombre."],
+    k: [["servicio","servir","utilizacion","utilizar"], ["ajeno","ajena","otro","otra","tercero"], ["dar"], ["hacer"], ["no hacer","abstencion","abstenerse","omision"], ["obligacion","deudor","acreedor"]] },
+
+  { t: "¿Qué es la propiedad?",
+    ans: ["Es el poder jurídico que una persona ejerce en forma directa e inmediata sobre una cosa para aprovecharla totalmente en sentido jurídico, siendo oponible este poder a un sujeto pasivo universal."],
+    k: [["poder","facultad"], ["juridico","juridica"], ["directa","directo","directamente"], ["inmediata","inmediato","inmediatamente"], ["cosa","bien"], ["aprovecharla","aprovechar","aprovechamiento","total","totalmente"], ["oponible","oponibilidad","oponer","oponerse"], ["universal","erga omnes","todos","sujeto pasivo"]] },
+
+  { t: "¿Qué es el dominio?",
+    ans: ["El dominio es el poder jurídico que se ejerce sobre una cosa. Comprende las facultades de usarla, disfrutarla y disponer de ella dentro de los límites establecidos por la ley."],
+    note: "Esta respuesta se expresa con base en el tratamiento del derecho de propiedad en el libro; no se presenta como una cita literal independiente del autor.",
+    k: [["poder","facultad"], ["juridico","juridica"], ["cosa","bien"], ["usar","usarla","uso","usa","utilizar"], ["disfrutar","disfrutarla","disfrute","goce","gozar","disfruta"], ["disponer","disposicion","dispone","disponerla"], ["limite","limitacion","limitado","ley"]] },
+
+  { t: "¿Cuál es la diferencia entre dominio y propiedad?",
+    ans: ["El dominio se refiere al poder jurídico que se ejerce sobre una cosa, mientras que la propiedad es el derecho real que atribuye a su titular las facultades de uso, disfrute y disposición, dentro de los límites legales."],
+    note: "Respuesta elaborada con base en el tratamiento de la propiedad del libro.",
+    k: [["poder"], ["cosa","bien"], ["derecho real"], ["titular","atribuye","propietario"], ["facultad","uso","disfrute","disposicion","usar","disfrutar","disponer"], ["limite","legal","ley"]] },
+
+  { t: "¿Cómo se clasifican los bienes inmuebles?", hint: "Enumera los grupos de la clasificación.",
+    ans: ["• Inmuebles por naturaleza.", "• Inmuebles por destino.", "• Inmuebles por el objeto al cual se aplican."],
+    k: [["naturaleza","natural"], ["destino"], ["objeto","aplican","aplicacion","aplica"]] },
+
+  { t: "¿Qué son los bienes fungibles?",
+    ans: ["Son aquellos bienes que tienen el mismo poder liberatorio; es decir, que pueden sustituirse por otros de la misma especie, calidad y cantidad para cumplir una obligación."],
+    note: "Respuesta basada en la clasificación de los bienes del libro.",
+    k: [["liberatorio","liberatoria"], ["sustituir","sustituirse","sustituido","sustituible","sustitucion","reemplazar","reemplazable","intercambiable","intercambio","cambiar"], ["especie","naturaleza","genero","clase"], ["calidad"], ["cantidad"]] },
+
+  { t: "¿Qué son la prescripción positiva y la prescripción negativa?", hint: "Define las dos.",
+    ans: ["• Prescripción positiva: medio de adquirir bienes o derechos mediante la posesión durante el tiempo y con las condiciones establecidas por la ley.",
+          "• Prescripción negativa: medio de liberarse de obligaciones por el transcurso del tiempo y bajo las condiciones establecidas por la ley."],
+    note: "Respuestas concretadas con base en el tratamiento de la prescripción en el libro.",
+    k: [["adquirir","adquisicion","adquiere","adquirirse"], ["posesion","poseer","posee"], ["liberar","liberarse","liberacion","libera","extincion","extingue","extinguir","extinguen"], ["obligacion","deuda","obligado"], ["tiempo","transcurso","plazo"], ["condicion","ley","legal","establecida"]] },
+
+  { t: "¿Qué es el usufructo?",
+    ans: ["Es un derecho real y temporal de disfrutar de los bienes ajenos."],
+    k: [["real"], ["temporal","tiempo","temporalmente"], ["disfrutar","disfrute","goce","gozar","usar"], ["ajeno","ajena","ajenos","tercero"]] },
+
+  { t: "¿Qué son el uso y la habitación?", hint: "Define ambos derechos.",
+    ans: ["• Uso: derecho real para percibir de los frutos de una cosa ajena los que basten a las necesidades del usuario y de su familia.",
+          "• Habitación: derecho real para ocupar gratuitamente, en una casa ajena, las piezas necesarias para el habitante y su familia."],
+    note: "Definiciones basadas en el tratamiento de estos derechos reales en el libro.",
+    k: [["percibir","percibe","fruto"], ["necesidad"], ["familia","familiar"], ["ocupar","ocupa","ocupacion","vivir","vive"], ["gratuito","gratuitamente","gratis","gratuita"], ["casa","vivienda","inmueble"], ["pieza","cuarto","espacio","recamara"], ["ajena","ajeno","ajenas"]] },
+
+  { t: "¿Cómo se clasifican los bienes de dominio público?", hint: "Enumera los grupos.",
+    ans: ["Los bienes de dominio público se subdividen en tres grupos:",
+          "1. Bienes de uso común.", "2. Bienes destinados a un servicio público.", "3. Bienes propios del Estado."],
+    k: [["uso comun","comun","comunes"], ["servicio publico","destinado","destinados"], ["propio","propios"]] },
+
+  { t: "¿Qué es la copropiedad?",
+    ans: ["Existe copropiedad cuando una cosa o un derecho pertenecen pro indiviso a varias personas; es decir, cuando cada una tiene una parte alícuota sobre el bien o derecho común."],
+    note: "Respuesta concretada con base en el tratamiento de la copropiedad en el libro.",
+    k: [["cosa","bien"], ["pro indiviso","indiviso","indivision","indivisa"], ["varia","varios","copropietario","pluralidad","personas"], ["alicuota","parte","porcion","porcentaje","cuota"], ["pertenece","pertenecen","propiedad","titular","titularidad"]] },
+
+  { t: "¿Cómo se define la posesión en los Códigos de 1870 y 1884?",
+    ans: ["En los Códigos de 1870 y 1884 se define la posesión como la tenencia de una cosa, o el goce de un derecho por nosotros mismos o por otro en nuestro nombre."],
+    k: [["tenencia","tener","tiene","detentar"], ["cosa","bien"], ["goce","gozar","goza","disfrute","disfrutar"], ["derecho"], ["nosotros","mismo","personalmente","propio nombre"], ["otro","tercero","nombre"]] },
+
+  { t: "¿Cómo se transmite el patrimonio por herencia?",
+    ans: ["En la herencia hay una transmisión integral, pues el heredero es un causahabiente a título universal. Fuera de ella, las transmisiones son parciales.",
+          "En nuestro derecho la herencia se entiende aceptada a beneficio de inventario, y el heredero cubre las deudas hasta donde alcancen los bienes."],
+    k: [["integral","totalidad","completa","total"], ["heredero","herederos"], ["causahabiente","causa habiente","universal","titulo universal"], ["parcial"], ["inventario","beneficio"], ["deuda","pasivo","obligacion"], ["alcancen","alcance","alcanzan","limite","limitado"]] },
+
+  { t: "¿Qué es la acción proforma?",
+    ans: ["Es la acción mediante la cual se exige el otorgamiento de la forma legal de un acto jurídico cuando existe la obligación de formalizarlo."],
+    note: "Esta definición es una síntesis jurídica basada en el concepto, no una cita literal verificada del libro.",
+    k: [["exige","exigir","exigencia","demanda","reclama","reclamar","pide","solicita"], ["otorgamiento","otorgar","otorgue","otorgarse","formalizar","formalizarlo","formalizacion","escritura"], ["forma","formalidad"], ["acto","contrato","negocio"], ["obligacion","obligado","obligatoria"]] },
+
+  { t: "¿Qué valor tienen las diligencias de información ad perpetuam para demostrar la posesión?",
+    ans: ["Las diligencias de información ad perpetuam promovidas en jurisdicción voluntaria para demostrar la posesión de un bien no demuestran por sí solas la posesión apta para prescribir."],
+    must: [0],
+    k: [["no demuestran","no demuestra","no demostrar","no prueban","no prueba","no bastan","no basta","insuficiente","insuficientes","no son suficientes","no es suficiente","no acreditan","no acredita","no son prueba","no justifican","no son bastantes","no sirven","no sirve","no alcanzan","no alcanza"], ["prescribir","prescripcion","prescriptiva","usucapir"], ["jurisdiccion voluntaria","voluntaria"], ["solas","sola","solo","unicamente","aisladamente","apta","apto","idonea"]] }
+];
+
+// ---------- Calificación tolerante a errores de escritura ----------
+const norm = s => String(s || "").toLowerCase().normalize("NFD").replace(/[̀-ͯ]/g, "").replace(/[^a-z0-9\s]/g, " ");
+const toks = s => norm(s).split(/\s+/).filter(Boolean);
+
+// distancia de edición entre a y el mejor prefijo de t
+function prefLev(a, t) {
+  const n = a.length, m = t.length;
+  let prev = Array.from({ length: m + 1 }, (_, j) => j), best = Infinity;
+  for (let i = 1; i <= n; i++) {
+    const cur = [i];
+    for (let j = 1; j <= m; j++) {
+      cur[j] = Math.min(prev[j] + 1, cur[j - 1] + 1, prev[j - 1] + (a[i - 1] === t[j - 1] ? 0 : 1));
     }
-  ];
-
-  // ---------- Normalization & grading ----------
-  function normalize(str){
-    return (str||"")
-      .toLowerCase()
-      .normalize("NFD").replace(/[\u0300-\u036f]/g,"") // strip accents
-      .replace(/[^a-z0-9\s]/g," ")
-      .replace(/\s+/g," ")
-      .trim();
+    prev = cur;
   }
+  for (let j = 0; j <= m; j++) best = Math.min(best, prev[j]);
+  return best;
+}
+function wordMatch(t, a) {
+  if (t === a) return true;
+  if (a.length <= 3) return false;
+  if (t.startsWith(a)) return true;
+  if (t.length >= 5 && a.startsWith(t)) return true;
+  const sa = a.slice(0, 6);
+  if (sa.length <= 4) return false;
+  return prefLev(sa, t) <= 1;
+}
+function altMatch(alt, tk) {
+  return toks(alt).every(w => tk.some(t => wordMatch(t, w)));
+}
+function grade(q, text) {
+  const tk = toks(text);
+  if (tk.length < 2) return { status: "bad", credit: 0, cov: 0, empty: tk.length === 0 };
+  const hits = q.k.map(alts => alts.some(a => altMatch(a, tk)));
+  const cov = hits.filter(Boolean).length / q.k.length;
+  const mustOk = (q.must || []).every(i => hits[i]);
+  let lvl = cov >= 0.7 ? 2 : cov >= 0.4 ? 1 : 0;
+  if (!mustOk) lvl = Math.max(0, lvl - 1);
+  const status = ["bad", "partial", "ok"][lvl];
+  return { status, credit: [0, 0.5, 1][lvl], cov, empty: false };
+}
 
-  function gradeQuestion(qObj, rawAnswer){
-    var norm = normalize(rawAnswer);
-    var results = qObj.groups.map(function(g){
-      var hit = norm.length > 0 && g.variants.some(function(v){ return norm.indexOf(normalize(v)) !== -1; });
-      return {label:g.label, hit:hit};
-    });
-    var matched = results.filter(function(r){return r.hit;}).length;
-    var required = qObj.minRequired || qObj.groups.length;
-    var pct = Math.min(matched/required, 1) * 100;
-    return {results:results, matched:matched, required:required, pct:pct};
-  }
+// ---UI---
+const app = document.getElementById("app");
+const KEY = "examen-bienes-derechos-reales-v1";
+let S = { screen: "start", order: [], idx: 0, answers: {}, res: null, confirm: false, filter: "all" };
 
-  // ---------- Build DOM ----------
-  var container = document.getElementById('questions');
-  var textareas = [];
+function saveProgress() { try { localStorage.setItem(KEY, JSON.stringify({ order: S.order, idx: S.idx, answers: S.answers })); } catch (e) {} }
+function clearProgress() { try { localStorage.removeItem(KEY); } catch (e) {} }
+function loadProgress() {
+  try {
+    const o = JSON.parse(localStorage.getItem(KEY) || "null");
+    if (!o || !Array.isArray(o.order) || !o.order.length) return null;
+    if (!o.order.every(i => Number.isInteger(i) && i >= 0 && i < Q.length)) return null;
+    return { order: o.order, idx: Math.min(Math.max(+o.idx || 0, 0), o.order.length - 1), answers: o.answers && typeof o.answers === "object" ? o.answers : {} };
+  } catch (e) { return null; }
+}
+const esc = s => String(s).replace(/&/g, "&amp;").replace(/</g, "&lt;").replace(/>/g, "&gt;").replace(/"/g, "&quot;");
+const answered = () => S.order.filter(i => (S.answers[i] || "").trim()).length;
+const pad = n => String(n).padStart(2, "0");
+const ansLines = q => q.ans.map(l => `<p class="ansline${/^(•|\d+\.)\s/.test(l) ? " li" : ""}">${esc(l)}</p>`).join("");
 
-  QUESTIONS.forEach(function(qObj, i){
-    var card = document.createElement('div');
-    card.className = 'card';
-    card.id = 'card-' + i;
+function renderStart() {
+  const saved = loadProgress();
+  const savedCount = saved ? saved.order.filter(i => (saved.answers[i] || "").trim()).length : 0;
+  app.innerHTML = `
+  <section class="card">
+    <p class="eyebrow">Bienes, derechos reales y patrimonio</p>
+    <h1>Examen de Bienes y Derechos Reales</h1>
+    <p class="lead">${Q.length} preguntas abiertas basadas en tu guía de estudio.</p>
+    <ul class="facts">
+      <li>Escribe tus respuestas con tus propias palabras. Se califica el contenido, así que los acentos, las mayúsculas y los errores de ortografía pequeños no cuentan en tu contra.</li>
+      <li>No verás si acertaste hasta el final. Ahí aparecen tu calificación y la respuesta correcta de cada pregunta.</li>
+      <li>No hay límite de tiempo. Tu avance se guarda en este navegador.</li>
+    </ul>
+    <label class="check" for="shuffle"><input type="checkbox" id="shuffle"> Mezclar el orden de las preguntas</label>
+    <div class="row">
+      ${saved ? `<button class="btn primary" data-act="resume">Continuar (${savedCount} respondidas)</button><button class="btn" data-act="start">Empezar de nuevo</button>` : `<button class="btn primary" data-act="start">Comenzar examen</button>`}
+    </div>
+  </section>`;
+}
 
-    var num = document.createElement('span');
-    num.className = 'num';
-    num.textContent = 'Reactivo ' + (i+1) + ' de ' + QUESTIONS.length;
-    card.appendChild(num);
+function renderExam(focus) {
+  const qi = S.order[S.idx], q = Q[qi], total = S.order.length, last = S.idx === total - 1;
+  const done = answered();
+  const chips = S.order.map((i, p) => `<button class="chip${p === S.idx ? " cur" : (S.answers[i] || "").trim() ? " done" : ""}" data-act="go" data-p="${p}" aria-label="Pregunta ${p + 1}${(S.answers[i] || "").trim() ? ", respondida" : ""}"${p === S.idx ? ' aria-current="step"' : ""}>${p + 1}</button>`).join("");
+  const missing = total - done;
+  app.innerHTML = `
+  <div class="progress">
+    <div class="meta"><span class="mono">Pregunta <b>${S.idx + 1}</b> de ${total}</span><span class="mono muted" id="cnt">${done} respondidas</span></div>
+    <div class="bar"><i id="barfill" style="width:${(done / total) * 100}%"></i></div>
+  </div>
+  <section class="card">
+    <p class="eyebrow">Pregunta ${pad(S.idx + 1)}</p>
+    <h2 class="qtext">${esc(q.t)}</h2>
+    ${q.hint ? `<p class="hint">${esc(q.hint)}</p>` : ""}
+    <label class="sr" for="ans">Tu respuesta</label>
+    <textarea id="ans" lang="es" class="${q.big ? "big" : ""}" placeholder="Escribe tu respuesta aquí">${esc(S.answers[qi] || "")}</textarea>
+  </section>
+  <div class="row nav">
+    <button class="btn" data-act="prev"${S.idx === 0 ? " disabled" : ""}>Anterior</button>
+    <button class="btn primary" data-act="${last ? "finish" : "next"}">${last ? "Terminar y calificar" : "Siguiente"}</button>
+  </div>
+  <nav class="chips" aria-label="Ir a una pregunta">${chips}</nav>
+  ${S.confirm ? `<div class="confirm" role="alert"><p>Te ${missing === 1 ? "falta 1 pregunta" : "faltan " + missing + " preguntas"} sin responder. Las preguntas vacías cuentan como incorrectas.</p><div class="row"><button class="btn" data-act="cancel">Seguir respondiendo</button><button class="btn primary" data-act="grade">Calificar ahora</button></div></div>` : (last ? "" : `<div><button class="btn ghost" data-act="finish">Terminar y calificar</button></div>`)}`;
+  if (focus) { const ta = document.getElementById("ans"); if (ta) ta.focus({ preventScroll: true }); }
+}
 
-    var qEl = document.createElement('p');
-    qEl.className = 'q';
-    qEl.textContent = qObj.q;
-    card.appendChild(qEl);
+const LABEL = { ok: "✓ Correcta", partial: "◐ Parcial", bad: "✕ Incorrecta" };
+function renderResult() {
+  const total = S.res.length;
+  const credits = S.res.reduce((a, r) => a + r.credit, 0);
+  const score = (credits / total) * 10;
+  const nOk = S.res.filter(r => r.status === "ok").length, nP = S.res.filter(r => r.status === "partial").length, nB = total - nOk - nP;
+  const verdict = score >= 9 ? "Dominas muy bien el tema." : score >= 7 ? "Vas bien. Repasa las preguntas que no salieron completas." : score >= 6 ? "Pasas por poco. Repasa las respuestas de abajo antes del examen." : "Necesitas repasar más. Empieza por las respuestas correctas de abajo.";
+  const review = S.res.filter(r => r.status !== "ok");
+  const list = (S.filter === "review" ? S.res.map((r, p) => ({ r, p })).filter(x => x.r.status !== "ok") : S.res.map((r, p) => ({ r, p })));
+  const items = list.map(({ r, p }) => {
+    const q = Q[r.i], a = (S.answers[r.i] || "").trim();
+    const label = r.empty ? "✕ Sin responder" : LABEL[r.status];
+    const note = q.note ? `<p class="note">${esc(q.note)}</p>` : "";
+    const correct = r.status === "ok"
+      ? `<details class="res-d"><summary>Ver la respuesta de la guía</summary><div class="blk correct"><p class="lbl">Respuesta de la guía</p>${ansLines(q)}${note}</div></details>`
+      : `<div class="blk correct"><p class="lbl">Respuesta correcta</p>${ansLines(q)}${note}</div>`;
+    return `<article class="res">
+      <header><span class="eyebrow">Pregunta ${pad(p + 1)}</span><span class="pill ${r.status}">${label}</span></header>
+      <h3>${esc(q.t)}</h3>
+      <div class="blk"><p class="lbl">Tu respuesta</p><p class="user">${a ? esc(a) : "<em class=\"muted\">Sin respuesta</em>"}</p></div>
+      ${correct}
+    </article>`;
+  }).join("");
+  app.innerHTML = `
+  <section class="card score">
+    <p class="eyebrow">Tu calificación</p>
+    <p class="big mono">${score.toFixed(1)}<small> / 10</small></p>
+    <div class="tally"><span class="pill ok">${nOk} correctas</span><span class="pill partial">${nP} parciales</span><span class="pill bad">${nB} incorrectas</span></div>
+    <p>${verdict}</p>
+    <div class="row">
+      ${review.length ? `<button class="btn primary" data-act="retry-missed">Repetir solo las ${review.length} que fallé</button>` : ""}
+      <button class="btn${review.length ? "" : " primary"}" data-act="restart">Repetir examen completo</button>
+    </div>
+  </section>
+  <div class="seg" role="group" aria-label="Filtrar preguntas">
+    <button class="btn" data-act="filter" data-v="all" aria-pressed="${S.filter === "all"}">Todas (${total})</button>
+    <button class="btn" data-act="filter" data-v="review" aria-pressed="${S.filter === "review"}">Para repasar (${review.length})</button>
+  </div>
+  ${items || `<section class="card"><p>No hay preguntas para repasar. Respondiste todo bien.</p></section>`}`;
+}
 
-    var ta = document.createElement('textarea');
-    ta.placeholder = 'Escribe tu respuesta…';
-    ta.id = 'ans-' + i;
-    ta.addEventListener('input', updateProgress);
-    card.appendChild(ta);
-    textareas.push(ta);
+function render(focus) {
+  if (S.screen === "start") renderStart();
+  else if (S.screen === "exam") renderExam(focus);
+  else renderResult();
+}
+function begin(order) {
+  S = { screen: "exam", order, idx: 0, answers: {}, res: null, confirm: false, filter: "all" };
+  saveProgress(); render(true); window.scrollTo(0, 0);
+}
+function shuffled(n) {
+  const a = Array.from({ length: n }, (_, i) => i);
+  for (let i = n - 1; i > 0; i--) { const j = Math.floor(Math.random() * (i + 1)); [a[i], a[j]] = [a[j], a[i]]; }
+  return a;
+}
+function goTo(p) { S.idx = Math.max(0, Math.min(S.order.length - 1, p)); S.confirm = false; saveProgress(); render(true); window.scrollTo(0, 0); }
+function gradeAll() {
+  S.res = S.order.map(i => ({ i, ...grade(Q[i], S.answers[i] || "") }));
+  S.screen = "result"; S.filter = "all"; clearProgress(); render(); window.scrollTo(0, 0);
+}
 
-    var fb = document.createElement('div');
-    fb.className = 'feedback';
-    fb.id = 'fb-' + i;
-    card.appendChild(fb);
-
-    container.appendChild(card);
-  });
-
-  // ---------- Autosave (per-viewer, local only) ----------
-  var STORAGE_KEY = 'examen-patrimonio-respuestas-v1';
-  function saveProgress(){
-    try{
-      var data = textareas.map(function(t){ return t.value; });
-      localStorage.setItem(STORAGE_KEY, JSON.stringify(data));
-    }catch(e){ /* storage unavailable — ignore */ }
-  }
-  function loadProgress(){
-    try{
-      var raw = localStorage.getItem(STORAGE_KEY);
-      if(!raw) return;
-      var data = JSON.parse(raw);
-      data.forEach(function(val, i){ if(textareas[i]) textareas[i].value = val || ''; });
-    }catch(e){ /* storage unavailable or corrupt — ignore */ }
-  }
-  loadProgress();
-
-  function updateProgress(){
-    var answered = textareas.filter(function(t){ return t.value.trim().length > 3; }).length;
-    var pct = (answered / QUESTIONS.length) * 100;
-    document.getElementById('progressFill').style.width = pct + '%';
-    document.getElementById('progressLabel').textContent = answered + ' de ' + QUESTIONS.length + ' respondidas';
-    saveProgress();
-  }
-  updateProgress();
-
-  // ---------- Grading ----------
-  function letterVerdict(pct){
-    if(pct >= 85) return {cls:'full', text:'Excelente'};
-    if(pct >= 70) return {cls:'partial', text:'Bien'};
-    if(pct >= 50) return {cls:'partial', text:'Regular'};
-    return {cls:'low', text:'Insuficiente'};
-  }
-
-  function renderFeedback(i, grading){
-    var fb = document.getElementById('fb-' + i);
-    fb.innerHTML = '';
-    fb.classList.add('show');
-
-    var verdict = letterVerdict(grading.pct);
-
-    var scoreRow = document.createElement('div');
-    scoreRow.className = 'score-row';
-    var pill = document.createElement('span');
-    pill.className = 'score-pill ' + verdict.cls;
-    pill.textContent = verdict.text;
-    var pctText = document.createElement('span');
-    pctText.className = 'score-pct';
-    pctText.textContent = Math.round(grading.pct) + '% · ' + grading.matched + ' de ' + grading.required + ' conceptos clave';
-    scoreRow.appendChild(pill);
-    scoreRow.appendChild(pctText);
-    fb.appendChild(scoreRow);
-
-    var list = document.createElement('ul');
-    list.className = 'concept-list';
-    grading.results.forEach(function(r){
-      var li = document.createElement('li');
-      li.className = r.hit ? 'hit' : 'miss';
-      var mark = document.createElement('span');
-      mark.className = 'mark';
-      mark.textContent = r.hit ? '✓' : '✗';
-      li.appendChild(mark);
-      li.appendChild(document.createTextNode(r.label));
-      list.appendChild(li);
-    });
-    fb.appendChild(list);
-
-    var model = document.createElement('div');
-    model.className = 'model-answer';
-    model.innerHTML = '<strong>Respuesta modelo (guía)</strong>';
-    model.appendChild(document.createTextNode(QUESTIONS[i].model));
-    fb.appendChild(model);
-  }
-
-  function gradeExam(){
-    var totalPct = 0;
-    QUESTIONS.forEach(function(qObj, i){
-      var grading = gradeQuestion(qObj, textareas[i].value);
-      renderFeedback(i, grading);
-      totalPct += grading.pct;
-    });
-    var avgPct = totalPct / QUESTIONS.length;
-    var grade10 = (avgPct/100*10).toFixed(1);
-
-    var summary = document.getElementById('summary');
-    summary.classList.add('show');
-    document.getElementById('gradeBig').textContent = grade10;
-    document.getElementById('gradePct').textContent = Math.round(avgPct) + '%';
-    var verdictEl = document.getElementById('gradeVerdict');
-    if(avgPct >= 70){
-      verdictEl.textContent = 'Aprobado';
-      verdictEl.classList.add('pass');
-    } else {
-      verdictEl.textContent = 'No aprobado — repasa los reactivos en rojo';
-      verdictEl.classList.remove('pass');
-    }
-    summary.scrollIntoView({behavior:'smooth', block:'start'});
-  }
-
-  document.getElementById('gradeBtn').addEventListener('click', gradeExam);
-
-  function restartExam(){
-    textareas.forEach(function(t){ t.value = ''; });
-    document.querySelectorAll('.feedback').forEach(function(f){ f.classList.remove('show'); f.innerHTML=''; });
-    document.getElementById('summary').classList.remove('show');
-    document.getElementById('gradeBig').textContent = '0.0';
-    document.getElementById('gradePct').textContent = '0%';
-    var verdictEl = document.getElementById('gradeVerdict');
-    verdictEl.textContent = '—';
-    verdictEl.classList.remove('pass');
-    updateProgress();
-    try{ localStorage.removeItem(STORAGE_KEY); }catch(e){ /* storage unavailable — ignore */ }
-    window.scrollTo({top:0, behavior:'smooth'});
-    if(textareas[0]) textareas[0].focus();
-  }
-
-  document.getElementById('resetBtn').addEventListener('click', function(){
-    if(!confirm('¿Reiniciar el examen? Se borrarán todas tus respuestas y calificaciones.')) return;
-    restartExam();
-  });
-
-})();
+app.addEventListener("input", e => {
+  if (e.target.id !== "ans") return;
+  S.answers[S.order[S.idx]] = e.target.value;
+  saveProgress();
+  const done = answered();
+  document.getElementById("cnt").textContent = done + " respondidas";
+  document.getElementById("barfill").style.width = (done / S.order.length) * 100 + "%";
+  const chip = app.querySelector(".chip.cur"); if (chip) chip.classList.toggle("done", false);
+  const cur = app.querySelectorAll(".chip");
+  cur.forEach((c, p) => { if (p !== S.idx) c.classList.toggle("done", !!(S.answers[S.order[p]] || "").trim()); });
+});
+app.addEventListener("click", e => {
+  const b = e.target.closest("[data-act]"); if (!b) return;
+  const act = b.dataset.act;
+  if (act === "start") { const sh = document.getElementById("shuffle"); begin(sh && sh.checked ? shuffled(Q.length) : Array.from({ length: Q.length }, (_, i) => i)); }
+  else if (act === "resume") { const p = loadProgress(); if (p) { S = { screen: "exam", order: p.order, idx: p.idx, answers: p.answers, res: null, confirm: false, filter: "all" }; render(true); window.scrollTo(0, 0); } }
+  else if (act === "next") goTo(S.idx + 1);
+  else if (act === "prev") goTo(S.idx - 1);
+  else if (act === "go") goTo(+b.dataset.p);
+  else if (act === "finish") { if (answered() < S.order.length) { S.confirm = true; render(); const c = app.querySelector(".confirm"); if (c) c.scrollIntoView({ block: "center" }); } else gradeAll(); }
+  else if (act === "cancel") { S.confirm = false; render(true); }
+  else if (act === "grade") gradeAll();
+  else if (act === "filter") { S.filter = b.dataset.v; renderResult(); }
+  else if (act === "retry-missed") begin(S.res.filter(r => r.status !== "ok").map(r => r.i));
+  else if (act === "restart") { S = { screen: "start", order: [], idx: 0, answers: {}, res: null, confirm: false, filter: "all" }; clearProgress(); render(); window.scrollTo(0, 0); }
+});
+render();
 </script>
-</body>
-</html>
-</body>
-</html>
+
+

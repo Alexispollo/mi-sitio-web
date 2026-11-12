@@ -30,6 +30,10 @@
   .score { font-size:2.4rem; font-weight:700; margin:8px 0; }
   .note { color:var(--muted); font-size:.8rem; margin-top:20px; }
   ul.rev { padding-left:18px; } ul.rev li { margin-bottom:8px; font-size:.92rem; }
+  .nav { display:flex; justify-content:space-between; align-items:center; gap:10px; margin-top:16px; flex-wrap:wrap; }
+  .nav button.main { margin-top:0; }
+  button.sec { background:transparent; color:var(--text); border:1px solid var(--line); border-radius:10px; padding:11px 18px; font:inherit; cursor:pointer; }
+  button.sec:hover { border-color:var(--accent); }
 </style>
 </head>
 <body>
@@ -130,7 +134,7 @@ const DATA = [
 ];
 
 const app = document.getElementById('app');
-let qs, i, score, wrong;
+let qs, i;
 
 function shuffle(a) {
   a = a.slice();
@@ -141,13 +145,12 @@ function shuffle(a) {
   return a;
 }
 
+function score() { return qs.filter(q => q.chosen === q.correct).length; }
+
 function start() {
   // Mezcla el orden de las preguntas y de las opciones en cada intento
-  qs = shuffle(DATA).map(([p, opts, c, e]) => {
-    const correct = opts[c];
-    return { p, opts: shuffle(opts), correct, e };
-  });
-  i = 0; score = 0; wrong = [];
+  qs = shuffle(DATA).map(([p, opts, c, e]) => ({ p, opts: shuffle(opts), correct: opts[c], e, chosen: null }));
+  i = 0;
   render();
 }
 
@@ -156,7 +159,7 @@ function render() {
   const q = qs[i];
   app.innerHTML = `
     <div class="bar"><div style="width:${(i / qs.length) * 100}%"></div></div>
-    <div class="meta"><span>Pregunta ${i + 1} de ${qs.length}</span><span>Aciertos: ${score}</span></div>
+    <div class="meta"><span>Pregunta ${i + 1} de ${qs.length}</span><span>Aciertos: ${score()}</span></div>
     <p class="q">${q.p}</p>
     <div id="opts"></div>
     <div id="fb"></div>`;
@@ -165,34 +168,64 @@ function render() {
     const b = document.createElement('button');
     b.className = 'opt';
     b.textContent = text;
-    b.onclick = () => answer(b, text);
+    b.onclick = () => choose(text);
     box.appendChild(b);
   });
+  if (q.chosen !== null) showFeedback(); else showNav(false);
 }
 
-function answer(btn, text) {
+function navHtml(answered) {
+  const prev = i > 0 ? '<button class="sec" id="prev">← Anterior</button>' : '<span></span>';
+  const next = answered
+    ? `<button class="main" id="next">${i + 1 < qs.length ? 'Siguiente →' : 'Ver resultado'}</button>`
+    : '';
+  return `<div class="nav">${prev}${next}</div>`;
+}
+
+function bindNav() {
+  const prev = document.getElementById('prev');
+  const next = document.getElementById('next');
+  if (prev) prev.onclick = () => { i--; render(); };
+  if (next) next.onclick = () => { i++; render(); };
+}
+
+function showNav(answered) {
+  document.getElementById('fb').innerHTML = navHtml(answered);
+  bindNav();
+}
+
+function choose(text) {
   const q = qs[i];
-  const good = text === q.correct;
-  if (good) score++; else wrong.push(q);
+  if (q.chosen !== null) return;
+  q.chosen = text;
+  render();
+}
+
+function showFeedback() {
+  const q = qs[i];
+  const good = q.chosen === q.correct;
   document.querySelectorAll('.opt').forEach(b => {
     b.disabled = true;
     if (b.textContent === q.correct) b.classList.add('ok');
+    else if (b.textContent === q.chosen) b.classList.add('bad');
   });
-  if (!good) btn.classList.add('bad');
   document.getElementById('fb').innerHTML = `
     <div class="exp"><b class="${good ? 'ok' : 'bad'}">${good ? '¡Correcto!' : 'Incorrecto.'}</b> ${q.e}</div>
-    <button class="main" id="next">${i + 1 < qs.length ? 'Siguiente' : 'Ver resultado'}</button>`;
-  document.getElementById('next').onclick = () => { i++; render(); };
+    ${navHtml(true)}`;
+  bindNav();
 }
 
 function finish() {
-  const pct = Math.round((score / qs.length) * 100);
+  const sc = score();
+  const pct = Math.round((sc / qs.length) * 100);
+  const wrong = qs.filter(q => q.chosen !== q.correct);
   app.innerHTML = `
     <div class="bar"><div style="width:100%"></div></div>
     <p class="q">Resultado final</p>
-    <div class="score">${score} / ${qs.length} (${pct}%)</div>
+    <div class="score">${sc} / ${qs.length} (${pct}%)</div>
     ${wrong.length ? `<p>Para repasar:</p><ul class="rev">${wrong.map(q => `<li><b>${q.p}</b><br>${q.correct}</li>`).join('')}</ul>` : '<p>¡Sin errores!</p>'}
-    <button class="main" id="again">Intentar de nuevo</button>`;
+    <div class="nav"><button class="sec" id="back">← Volver a la última pregunta</button><button class="main" id="again">Intentar de nuevo</button></div>`;
+  document.getElementById('back').onclick = () => { i = qs.length - 1; render(); };
   document.getElementById('again').onclick = start;
 }
 

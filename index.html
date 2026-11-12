@@ -1,441 +1,202 @@
-<!doctype html>
+<!DOCTYPE html>
 <html lang="es">
 <head>
-<meta charset="utf-8">
-<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
-<title>Examen Teoría del Estado</title>
-<meta name="claude:viewport-fit-sides" content="cover">
-<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Libre+Franklin:wght@400;500;600;700&family=Source+Serif+4:opsz,wght@8..60,500;8..60,600;8..60,700&display=swap">
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Quiz de Derecho Laboral - LFT</title>
 <style>
-/* Layout: single centered exam sheet, sticky bar with form tabs and progress, one fieldset per question. */
-:root {
-  --bg: #eef0f4;
-  --sheet: #ffffff;
-  --fg: #1a2233;
-  --muted: #5b6577;
-  --line: #d5dae3;
-  --accent: #2b45a1;
-  --accent-soft: #e4e9fa;
-  --accent-fg: #ffffff;
-  --ok: #17703d;
-  --ok-soft: #dff3e6;
-  --bad: #a52a2a;
-  --bad-soft: #f8e1e1;
-  --font-display: "Source Serif 4", Georgia, "Times New Roman", serif;
-  --font-body: "Libre Franklin", system-ui, -apple-system, "Segoe UI", sans-serif;
-}
-@media (prefers-color-scheme: dark) {
-  :root:not([data-theme="light"]) {
-    --bg: #121722;
-    --sheet: #1a2131;
-    --fg: #e6e9f0;
-    --muted: #9aa3b5;
-    --line: #2d3650;
-    --accent: #8ea2f0;
-    --accent-soft: #232d4d;
-    --accent-fg: #101626;
-    --ok: #62d08c;
-    --ok-soft: #173525;
-    --bad: #f08a8a;
-    --bad-soft: #3b1e22;
-    color-scheme: dark;
+  :root { --bg:#f5f6f8; --card:#fff; --text:#1d2330; --muted:#677084; --accent:#2f5bea; --ok:#1f8a4c; --okbg:#e6f6ec; --bad:#c23b3b; --badbg:#fbeaea; --line:#dfe3ea; }
+  @media (prefers-color-scheme: dark) {
+    :root { --bg:#14171d; --card:#1e232c; --text:#e8ebf1; --muted:#9aa3b5; --accent:#6f8dff; --ok:#4cc582; --okbg:#173326; --bad:#ef7a7a; --badbg:#3a1f1f; --line:#323946; }
   }
-}
-:root[data-theme="dark"] {
-  --bg: #121722;
-  --sheet: #1a2131;
-  --fg: #e6e9f0;
-  --muted: #9aa3b5;
-  --line: #2d3650;
-  --accent: #8ea2f0;
-  --accent-soft: #232d4d;
-  --accent-fg: #101626;
-  --ok: #62d08c;
-  --ok-soft: #173525;
-  --bad: #f08a8a;
-  --bad-soft: #3b1e22;
-  color-scheme: dark;
-}
-
-* { box-sizing: border-box; }
-body {
-  background: var(--bg);
-  color: var(--fg);
-  font-family: var(--font-body);
-  font-size: 16px;
-  line-height: 1.5;
-  padding-left: max(16px, env(safe-area-inset-left, 0px));
-  padding-right: max(16px, env(safe-area-inset-right, 0px));
-  padding-block: 0 48px;
-}
-body::before {
-  content: "";
-  position: fixed;
-  inset: 0 0 auto;
-  height: env(safe-area-inset-top, 0px);
-  background: var(--sheet);
-  z-index: 10;
-}
-.wrap { max-width: 760px; margin: 0 auto; }
-
-header.top {
-  position: sticky;
-  top: env(safe-area-inset-top, 0px);
-  z-index: 9;
-  background: var(--sheet);
-  border-bottom: 1px solid var(--line);
-  margin-inline: calc(-1 * max(16px, env(safe-area-inset-left, 0px))) calc(-1 * max(16px, env(safe-area-inset-right, 0px)));
-  padding: 12px max(16px, env(safe-area-inset-right, 0px)) 10px max(16px, env(safe-area-inset-left, 0px));
-}
-.top-inner { max-width: 760px; margin: 0 auto; display: flex; flex-direction: column; gap: 10px; }
-.top-row { display: flex; align-items: center; justify-content: space-between; gap: 12px; flex-wrap: wrap; }
-.brand { font-family: var(--font-display); font-weight: 700; font-size: 1.05rem; letter-spacing: 0.01em; }
-.tabs { display: flex; gap: 6px; }
-.tab {
-  font: inherit; font-size: 0.9rem; font-weight: 600;
-  padding: 7px 14px; border-radius: 6px;
-  border: 1px solid var(--line); background: transparent; color: var(--fg);
-  cursor: pointer;
-}
-.tab[aria-selected="true"] { background: var(--accent); border-color: var(--accent); color: var(--accent-fg); }
-.tab:focus-visible, .btn:focus-visible, .opt input:focus-visible + .opt-body { outline: 3px solid var(--accent); outline-offset: 2px; }
-.progress { display: flex; align-items: center; gap: 12px; }
-.bar { flex: 1; height: 6px; background: var(--line); border-radius: 3px; overflow: hidden; }
-.bar > span { display: block; height: 100%; width: 0; background: var(--accent); transition: width 0.2s ease; }
-.count { font-size: 0.82rem; color: var(--muted); font-variant-numeric: tabular-nums; white-space: nowrap; }
-
-.intro { padding: 28px 0 8px; }
-.intro .kicker { font-size: 0.75rem; text-transform: uppercase; letter-spacing: 0.12em; color: var(--muted); font-weight: 600; }
-.intro h1 { font-family: var(--font-display); font-size: clamp(1.7rem, 5vw, 2.3rem); line-height: 1.15; margin: 6px 0 8px; text-wrap: balance; }
-.intro p { margin: 0; color: var(--muted); max-width: 60ch; }
-
-.result {
-  margin: 20px 0 4px; padding: 18px 20px;
-  background: var(--accent-soft); border: 1px solid var(--line); border-radius: 8px;
-  display: flex; flex-wrap: wrap; align-items: center; justify-content: space-between; gap: 14px;
-}
-.result[hidden] { display: none !important; }
-.score { font-family: var(--font-display); font-size: 2rem; font-weight: 700; line-height: 1; font-variant-numeric: tabular-nums; }
-.score small { font-family: var(--font-body); font-size: 0.9rem; font-weight: 500; color: var(--muted); margin-left: 6px; }
-.result-detail { color: var(--muted); font-size: 0.9rem; margin-top: 4px; font-variant-numeric: tabular-nums; }
-
-.toolbar { display: flex; flex-wrap: wrap; align-items: center; justify-content: space-between; gap: 10px; margin-top: 20px; }
-.toolbar[hidden] { display: none !important; }
-.toolbar-btns { display: flex; flex-wrap: wrap; gap: 8px; }
-.order-label { font-size: 0.85rem; color: var(--muted); }
-.btn.small { padding: 7px 14px; font-size: 0.85rem; }
-.btn:disabled { opacity: 0.45; cursor: default; filter: none; }
-.q-list { display: flex; flex-direction: column; gap: 14px; margin-top: 14px; }
-fieldset.q {
-  margin: 0; min-width: 0;
-  background: var(--sheet); border: 1px solid var(--line); border-radius: 8px;
-  padding: 18px 20px 14px;
-}
-fieldset.q legend {
-  float: left; width: 100%; padding: 0; margin: 0 0 12px;
-  font-family: var(--font-display); font-weight: 600; font-size: 1.12rem; line-height: 1.35;
-  text-wrap: pretty;
-}
-fieldset.q legend + * { clear: both; }
-.opts { display: flex; flex-direction: column; gap: 6px; clear: both; }
-.opt { display: block; cursor: pointer; }
-.opt input { position: absolute; opacity: 0; width: 1px; height: 1px; }
-.opt-body {
-  display: flex; align-items: baseline; gap: 10px; min-width: 0;
-  padding: 10px 12px; border: 1px solid var(--line); border-radius: 6px;
-  background: transparent;
-}
-.opt:hover .opt-body { border-color: var(--accent); }
-.opt input:checked + .opt-body { background: var(--accent-soft); border-color: var(--accent); }
-.letter { font-weight: 700; color: var(--accent); flex: none; }
-.otext { flex: 1; min-width: 0; overflow-wrap: anywhere; }
-.tag { flex: none; font-size: 0.72rem; font-weight: 700; text-transform: uppercase; letter-spacing: 0.06em; }
-.graded .opt { cursor: default; }
-.graded .opt:hover .opt-body { border-color: var(--line); }
-.graded .opt input:checked + .opt-body { border-color: var(--line); background: transparent; }
-.graded .opt.is-correct .opt-body { background: var(--ok-soft); border-color: var(--ok); }
-.graded .opt.is-correct .tag { color: var(--ok); }
-.graded .opt.is-wrong .opt-body { background: var(--bad-soft); border-color: var(--bad); }
-.graded .opt.is-wrong .tag { color: var(--bad); }
-.note { margin: 10px 0 0; font-size: 0.85rem; color: var(--muted); }
-.note.miss { color: var(--bad); font-weight: 600; }
-
-.actions { display: flex; flex-wrap: wrap; gap: 10px; margin-top: 22px; }
-.btn {
-  font: inherit; font-weight: 600; font-size: 0.95rem;
-  padding: 11px 22px; border-radius: 6px; cursor: pointer;
-  border: 1px solid var(--accent); background: var(--accent); color: var(--accent-fg);
-}
-.btn.ghost { background: transparent; color: var(--accent); }
-.btn:hover { filter: brightness(1.08); }
-.btn[hidden] { display: none !important; }
-
-@media (max-width: 480px) {
-  fieldset.q { padding: 16px 14px 12px; }
-  .opt-body { padding: 10px; }
-}
-@media (prefers-reduced-motion: reduce) { .bar > span { transition: none; } }
+  * { box-sizing: border-box; }
+  body { margin:0; font-family: system-ui, -apple-system, "Segoe UI", Roboto, sans-serif; background:var(--bg); color:var(--text); line-height:1.5; }
+  .wrap { max-width:720px; margin:0 auto; padding:24px 16px 48px; }
+  h1 { font-size:1.4rem; margin:0 0 4px; }
+  .sub { color:var(--muted); margin:0 0 20px; font-size:.95rem; }
+  .card { background:var(--card); border:1px solid var(--line); border-radius:14px; padding:20px; }
+  .bar { height:6px; background:var(--line); border-radius:99px; overflow:hidden; margin-bottom:8px; }
+  .bar > div { height:100%; background:var(--accent); width:0; transition:width .3s; }
+  .meta { display:flex; justify-content:space-between; color:var(--muted); font-size:.85rem; margin-bottom:16px; }
+  .q { font-size:1.1rem; font-weight:600; margin:0 0 16px; }
+  .opt { display:block; width:100%; text-align:left; background:transparent; color:var(--text); border:1px solid var(--line); border-radius:10px; padding:12px 14px; margin-bottom:10px; font:inherit; cursor:pointer; }
+  .opt:hover:not(:disabled) { border-color:var(--accent); }
+  .opt:disabled { cursor:default; }
+  .opt.ok { border-color:var(--ok); background:var(--okbg); }
+  .opt.bad { border-color:var(--bad); background:var(--badbg); }
+  .exp { margin-top:14px; padding:12px 14px; border-radius:10px; background:var(--bg); border:1px solid var(--line); font-size:.95rem; }
+  .exp b.ok { color:var(--ok); } .exp b.bad { color:var(--bad); }
+  button.main { margin-top:16px; background:var(--accent); color:#fff; border:0; border-radius:10px; padding:11px 20px; font:inherit; font-weight:600; cursor:pointer; }
+  .score { font-size:2.4rem; font-weight:700; margin:8px 0; }
+  .note { color:var(--muted); font-size:.8rem; margin-top:20px; }
+  ul.rev { padding-left:18px; } ul.rev li { margin-bottom:8px; font-size:.92rem; }
 </style>
-
-<style>html{color-scheme:light dark}body{margin:0}</style>
 </head>
 <body>
-<header class="top">
-  <div class="top-inner">
-    <div class="top-row">
-      <span class="brand">Teoría del Estado</span>
-      <div class="tabs" role="tablist" aria-label="Formularios">
-        <button class="tab" role="tab" id="tab-1" data-form="1" aria-selected="true" type="button">Formulario 1</button>
-        <button class="tab" role="tab" id="tab-2" data-form="2" aria-selected="false" type="button">Formulario 2</button>
-      </div>
-    </div>
-    <div class="progress">
-      <div class="bar" aria-hidden="true"><span id="bar"></span></div>
-      <span class="count" id="count" aria-live="polite"></span>
-    </div>
-  </div>
-</header>
-
-<main class="wrap">
-  <section class="intro">
-    <div class="kicker" id="kicker"></div>
-    <h1>Examen de Teoría del Estado</h1>
-    <p>Elige una opción por pregunta. Al terminar, pulsa Calificar para ver tu resultado y las respuestas correctas.</p>
-  </section>
-
-  <div class="result" id="result" hidden role="status">
-    <div>
-      <div class="score" id="score"></div>
-      <div class="result-detail" id="detail"></div>
-    </div>
-    <button class="btn ghost" id="retry-top" type="button">Reintentar</button>
-  </div>
-
-  <form id="exam" autocomplete="off">
-    <div class="toolbar" id="toolbar">
-      <span class="order-label" id="order-label"></span>
-      <div class="toolbar-btns">
-        <button class="btn small ghost" id="shuffle" type="button">Mezclar preguntas</button>
-        <button class="btn small ghost" id="original" type="button">Orden original</button>
-      </div>
-    </div>
-    <div class="q-list" id="qlist"></div>
-    <div class="actions">
-      <button class="btn" id="grade" type="submit">Calificar</button>
-      <button class="btn ghost" id="reset" type="button">Borrar respuestas</button>
-    </div>
-  </form>
-</main>
+<div class="wrap">
+  <h1>Quiz de Derecho Laboral</h1>
+  <p class="sub">Ley Federal del Trabajo (aplicable en Baja California / Ensenada)</p>
+  <div class="card" id="app"></div>
+  <p class="note">Verifica artículos y cifras contra tu texto de la ley o el de tu curso.</p>
+</div>
 
 <script>
-const DATA = {"1": [{"n": "1", "text": "¿Cuál es el objeto específico de conocimiento de la Teoría del Estado?", "options": [{"letter": "a", "text": "La sociedad"}, {"letter": "b", "text": "El Estado"}, {"letter": "c", "text": "El Derecho"}, {"letter": "d", "text": "La economía"}], "correct": "b"}, {"n": "2", "text": "El conocimiento cotidiano que obtenemos de la presencia del Estado es denominado:", "options": [{"letter": "a", "text": "Científico"}, {"letter": "b", "text": "Filosófico"}, {"letter": "c", "text": "Vulgar"}, {"letter": "d", "text": "Jurídico"}], "correct": "c"}, {"n": "3", "text": "La naturaleza del Estado se caracteriza por ser:", "options": [{"letter": "a", "text": "Simple"}, {"letter": "b", "text": "Exclusivamente jurídica"}, {"letter": "c", "text": "Compleja"}, {"letter": "d", "text": "Exclusivamente política"}], "correct": "c"}, {"n": "4", "text": "Desde el punto de vista objetivo, el Estado puede entenderse como:", "options": [{"letter": "a", "text": "Una idea moral"}, {"letter": "b", "text": "Un conjunto de relaciones sociales"}, {"letter": "c", "text": "Una ficción jurídica"}, {"letter": "d", "text": "Una doctrina política"}], "correct": "b"}, {"n": "5", "text": "El punto de vista subjetivo complementa al objetivo al considerar principalmente:", "options": [{"letter": "a", "text": "El contenido humano"}, {"letter": "b", "text": "La extensión territorial"}, {"letter": "c", "text": "Las fronteras"}, {"letter": "d", "text": "Los recursos naturales"}], "correct": "a"}, {"n": "6", "text": "¿Cuál de las siguientes es una disciplina política fundamental?", "options": [{"letter": "a", "text": "Estadística"}, {"letter": "b", "text": "Etnografía"}, {"letter": "c", "text": "Filosofía política"}, {"letter": "d", "text": "Antropología"}], "correct": "c"}, {"n": "7", "text": "¿Cómo denominó Adolfo Posada al conjunto de disciplinas dedicadas al fenómeno político?", "options": [{"letter": "a", "text": "Ciencia estatal"}, {"letter": "b", "text": "Enciclopedia política"}, {"letter": "c", "text": "Sociología general"}, {"letter": "d", "text": "Filosofía estatal"}], "correct": "b"}, {"n": "8", "text": "¿Por qué la Ciencia política constituye una disciplina autónoma?", "options": [{"letter": "a", "text": "Carece de objeto propio"}, {"letter": "b", "text": "Estudia exclusivamente normas"}, {"letter": "c", "text": "Posee un campo propio"}, {"letter": "d", "text": "Depende de la historia"}], "correct": "c"}, {"n": "9", "text": "¿Cuál de los siguientes NO corresponde a los métodos señalados para estudiar al Estado?", "options": [{"letter": "a", "text": "Científico"}, {"letter": "b", "text": "Filosófico"}, {"letter": "c", "text": "Histórico"}, {"letter": "d", "text": "Experimental clínico"}], "correct": "d"}, {"n": "10", "text": "El método jurídico resulta pertinente porque el Estado desarrolla una actividad:", "options": [{"letter": "a", "text": "Religiosa"}, {"letter": "b", "text": "Normativa"}, {"letter": "c", "text": "Biológica"}, {"letter": "d", "text": "Mercantil"}], "correct": "b"}, {"n": "11", "text": "¿Qué relación existe entre Estado y Derecho según la guía?", "options": [{"letter": "a", "text": "Son fenómenos independientes"}, {"letter": "b", "text": "El Derecho es parte sustancial del Estado"}, {"letter": "c", "text": "El Derecho precede siempre al Estado"}, {"letter": "d", "text": "El Estado es parte del Derecho"}], "correct": "b"}, {"n": "12", "text": "¿Cuál es una función del Derecho respecto del Estado?", "options": [{"letter": "a", "text": "Eliminar la soberanía"}, {"letter": "b", "text": "Sustituir al gobierno"}, {"letter": "c", "text": "Encauzar sus funciones"}, {"letter": "d", "text": "Eliminar el poder"}], "correct": "c"}, {"n": "13", "text": "Las organizaciones políticas del Antiguo Oriente fueron calificadas generalmente como:", "options": [{"letter": "a", "text": "Democráticas"}, {"letter": "b", "text": "Federales"}, {"letter": "c", "text": "Despóticas o teocráticas"}, {"letter": "d", "text": "Parlamentarias"}], "correct": "c"}, {"n": "14", "text": "¿Cuál fue una característica fundamental de la polis griega?", "options": [{"letter": "a", "text": "Su federalismo"}, {"letter": "b", "text": "Su omnipotencia"}, {"letter": "c", "text": "Su parlamentarismo"}, {"letter": "d", "text": "Su pluralismo jurídico"}], "correct": "b"}, {"n": "15", "text": "¿En qué ámbito realizó Roma una aportación especialmente relevante?", "options": [{"letter": "a", "text": "Derecho e instituciones"}, {"letter": "b", "text": "Teología medieval"}, {"letter": "c", "text": "Democracia parlamentaria"}, {"letter": "d", "text": "Federalismo moderno"}], "correct": "a"}, {"n": "16", "text": "Con el cristianismo, el monismo antiguo dio paso a un:", "options": [{"letter": "a", "text": "Absolutismo político"}, {"letter": "b", "text": "Dualismo político-religioso"}, {"letter": "c", "text": "Federalismo territorial"}, {"letter": "d", "text": "Presidencialismo"}], "correct": "b"}, {"n": "17", "text": "¿Qué pensador sostuvo el origen divino del Estado y la necesidad natural de su existencia?", "options": [{"letter": "a", "text": "Rousseau"}, {"letter": "b", "text": "Montesquieu"}, {"letter": "c", "text": "San Agustín"}, {"letter": "d", "text": "Hobbes"}], "correct": "c"}, {"n": "18", "text": "Para Santo Tomás, el fin de la comunidad política consiste en alcanzar:", "options": [{"letter": "a", "text": "El poder absoluto"}, {"letter": "b", "text": "El bien común"}, {"letter": "c", "text": "La riqueza nacional"}, {"letter": "d", "text": "La expansión territorial"}], "correct": "b"}, {"n": "19", "text": "¿Cuál es una característica del Estado moderno señalada en la guía?", "options": [{"letter": "a", "text": "Fragmentación política"}, {"letter": "b", "text": "Unidad"}, {"letter": "c", "text": "Ausencia de Derecho"}, {"letter": "d", "text": "Supresión constitucional"}], "correct": "b"}, {"n": "20", "text": "En el Estado moderno, los derechos personales del individuo limitan:", "options": [{"letter": "a", "text": "La población"}, {"letter": "b", "text": "El territorio"}, {"letter": "c", "text": "El poder estatal"}, {"letter": "d", "text": "La nacionalidad"}], "correct": "c"}, {"n": "21", "text": "La nota que distingue al poder estatal de otros poderes sociales es su carácter:", "options": [{"letter": "a", "text": "Económico"}, {"letter": "b", "text": "Soberano"}, {"letter": "c", "text": "Privado"}, {"letter": "d", "text": "Religioso"}], "correct": "b"}, {"n": "22", "text": "En términos generales, soberano significa:", "options": [{"letter": "a", "text": "Temporal"}, {"letter": "b", "text": "Supremo"}, {"letter": "c", "text": "Colectivo"}, {"letter": "d", "text": "Popular"}], "correct": "b"}, {"n": "23", "text": "¿Qué finalidad delimita el ejercicio legítimo de la soberanía?", "options": [{"letter": "a", "text": "El interés privado"}, {"letter": "b", "text": "El bien público"}, {"letter": "c", "text": "El beneficio económico"}, {"letter": "d", "text": "La expansión territorial"}], "correct": "b"}, {"n": "24", "text": "¿Cuál es el elemento humano del Estado?", "options": [{"letter": "a", "text": "Gobierno"}, {"letter": "b", "text": "Territorio"}, {"letter": "c", "text": "Población"}, {"letter": "d", "text": "Soberanía"}], "correct": "c"}, {"n": "25", "text": "Para la existencia del Estado, el territorio es considerado:", "options": [{"letter": "a", "text": "Prescindible"}, {"letter": "b", "text": "Un elemento necesario"}, {"letter": "c", "text": "Una norma jurídica"}, {"letter": "d", "text": "Una forma de gobierno"}], "correct": "b"}], "2": [{"n": "1", "text": "Jellinek caracteriza al Estado como una:", "options": [{"letter": "a", "text": "Corporación territorial"}, {"letter": "b", "text": "Asociación religiosa"}, {"letter": "c", "text": "Comunidad mercantil"}, {"letter": "d", "text": "Organización privada"}], "correct": "a"}, {"n": "2", "text": "¿Qué elemento permite al Estado imponer obligatoriamente sus decisiones?", "options": [{"letter": "a", "text": "Población"}, {"letter": "b", "text": "Autoridad"}, {"letter": "c", "text": "Territorio"}, {"letter": "d", "text": "Nacionalidad"}], "correct": "b"}, {"n": "3", "text": "La dirección general de las actividades ciudadanas hacia el bien público corresponde al:", "options": [{"letter": "a", "text": "Gobierno"}, {"letter": "b", "text": "Territorio"}, {"letter": "c", "text": "Parlamento"}, {"letter": "d", "text": "Municipio"}], "correct": "a"}, {"n": "4", "text": "Desde el punto de vista objetivo, el Estado puede entenderse como:", "options": [{"letter": "a", "text": "Una idea moral"}, {"letter": "b", "text": "Un conjunto de relaciones sociales"}, {"letter": "c", "text": "Una ficción jurídica"}, {"letter": "d", "text": "Una doctrina política"}], "correct": "b"}, {"n": "5", "text": "La organización de los servicios públicos corresponde principalmente a la:", "options": [{"letter": "a", "text": "Soberanía"}, {"letter": "b", "text": "Legislación"}, {"letter": "c", "text": "Administración"}, {"letter": "d", "text": "Jurisdicción"}], "correct": "c"}, {"n": "6", "text": "¿Cuál es el fin específico del Estado según su elemento teleológico?", "options": [{"letter": "a", "text": "Bien público temporal"}, {"letter": "b", "text": "Dominio territorial"}, {"letter": "c", "text": "Poder económico"}, {"letter": "d", "text": "Control social"}], "correct": "a"}, {"n": "7", "text": "Un Estado donde la soberanía se ejerce sobre un mismo pueblo y territorio se denomina:", "options": [{"letter": "a", "text": "Confederado"}, {"letter": "b", "text": "Federal"}, {"letter": "c", "text": "Unitario"}, {"letter": "d", "text": "Parlamentario"}], "correct": "c"}, {"n": "8", "text": "¿Cuál es un ejemplo de Estado compuesto mencionado en la guía?", "options": [{"letter": "a", "text": "Estado Federal"}, {"letter": "b", "text": "Ciudad-Estado"}, {"letter": "c", "text": "Estado unitario"}, {"letter": "d", "text": "Estado teocrático"}], "correct": "a"}, {"n": "9", "text": "En una Federación existe:", "options": [{"letter": "a", "text": "Una sola soberanía"}, {"letter": "b", "text": "Una soberanía por municipio"}, {"letter": "c", "text": "Ausencia de soberanía"}, {"letter": "d", "text": "Soberanía internacional local"}], "correct": "a"}, {"n": "10", "text": "En el plano internacional, la personalidad del Estado Federal es:", "options": [{"letter": "a", "text": "Múltiple"}, {"letter": "b", "text": "Única"}, {"letter": "c", "text": "Municipal"}, {"letter": "d", "text": "Compartida"}], "correct": "b"}, {"n": "11", "text": "¿Cuál es la base jurídica fundamental de una Confederación?", "options": [{"letter": "a", "text": "Derecho penal"}, {"letter": "b", "text": "Derecho internacional"}, {"letter": "c", "text": "Derecho privado"}, {"letter": "d", "text": "Derecho mercantil"}], "correct": "b"}, {"n": "12", "text": "Una Confederación se caracteriza porque los Estados asociados:", "options": [{"letter": "a", "text": "Crean necesariamente un Estado superior"}, {"letter": "b", "text": "Pierden toda autonomía"}, {"letter": "c", "text": "Se unen mediante un pacto"}, {"letter": "d", "text": "Eliminan sus gobiernos"}], "correct": "c"}, {"n": "13", "text": "La democracia liberal combina principalmente:", "options": [{"letter": "a", "text": "Democracia y liberalismo"}, {"letter": "b", "text": "Monarquía y aristocracia"}, {"letter": "c", "text": "Socialismo y absolutismo"}, {"letter": "d", "text": "Teocracia y federalismo"}], "correct": "a"}, {"n": "14", "text": "En el sistema presidencial, el jefe de Estado también desempeña la función de:", "options": [{"letter": "a", "text": "Jefe de Gobierno"}, {"letter": "b", "text": "Presidente judicial"}, {"letter": "c", "text": "Jefe parlamentario"}, {"letter": "d", "text": "Legislador supremo"}], "correct": "a"}, {"n": "15", "text": "En el parlamentarismo, el gobierno emana principalmente del:", "options": [{"letter": "a", "text": "Poder Judicial"}, {"letter": "b", "text": "Parlamento"}, {"letter": "c", "text": "Ejército"}, {"letter": "d", "text": "Electorado judicial"}], "correct": "b"}, {"n": "16", "text": "¿Qué criterio permite analizar un sistema de partidos según la guía?", "options": [{"letter": "a", "text": "Polarización"}, {"letter": "b", "text": "Territorialidad"}, {"letter": "c", "text": "Religiosidad"}, {"letter": "d", "text": "Militarización"}], "correct": "a"}, {"n": "17", "text": "Una característica fundamental del Estado de Derecho liberal-burgués es contar con:", "options": [{"letter": "a", "text": "Constitución"}, {"letter": "b", "text": "Partido único"}, {"letter": "c", "text": "Monarquía"}, {"letter": "d", "text": "Ejército permanente"}], "correct": "a"}, {"n": "18", "text": "La Constitución mexicana de 1917 se caracteriza en la guía como:", "options": [{"letter": "a", "text": "Flexible y centralista"}, {"letter": "b", "text": "Rígida y federal"}, {"letter": "c", "text": "Monárquica y federal"}, {"letter": "d", "text": "Parlamentaria y unitaria"}], "correct": "b"}, {"n": "19", "text": "La parte dogmática de la Constitución mexicana se relaciona principalmente con:", "options": [{"letter": "a", "text": "Derechos y garantías"}, {"letter": "b", "text": "División territorial"}, {"letter": "c", "text": "Política exterior"}, {"letter": "d", "text": "Administración pública"}], "correct": "a"}, {"n": "20", "text": "Conforme al artículo 39 mencionado en la guía, la soberanía nacional reside en:", "options": [{"letter": "a", "text": "El Congreso"}, {"letter": "b", "text": "El Presidente"}, {"letter": "c", "text": "El pueblo"}, {"letter": "d", "text": "La Federación"}], "correct": "c"}, {"n": "21", "text": "¿Qué principio pretende evitar la concentración y el abuso del poder?", "options": [{"letter": "a", "text": "Separación de poderes"}, {"letter": "b", "text": "Centralización política"}, {"letter": "c", "text": "Soberanía absoluta"}, {"letter": "d", "text": "Gobierno unitario"}], "correct": "a"}, {"n": "22", "text": "¿Qué pensador es asociado directamente con la teoría clásica de separación de poderes?", "options": [{"letter": "a", "text": "Hauriou"}, {"letter": "b", "text": "Montesquieu"}, {"letter": "c", "text": "Jellinek"}, {"letter": "d", "text": "Santo Tomás"}], "correct": "b"}, {"n": "23", "text": "La función que determina la norma aplicable a casos particulares es la:", "options": [{"letter": "a", "text": "Legislativa"}, {"letter": "b", "text": "Jurisdiccional"}, {"letter": "c", "text": "Electoral"}, {"letter": "d", "text": "Diplomática"}], "correct": "b"}, {"n": "24", "text": "La función administrativa busca principalmente:", "options": [{"letter": "a", "text": "Crear constituciones"}, {"letter": "b", "text": "Satisfacer necesidades colectivas"}, {"letter": "c", "text": "Resolver litigios"}, {"letter": "d", "text": "Reformar leyes"}], "correct": "b"}, {"n": "25", "text": "Según la concepción moderna expuesta en la guía, la separación de poderes debe aplicarse:", "options": [{"letter": "a", "text": "De manera absolutamente rígida"}, {"letter": "b", "text": "Con cierta elasticidad"}, {"letter": "c", "text": "Sin controles recíprocos"}, {"letter": "d", "text": "Solo al Poder Legislativo"}], "correct": "b"}]};
+// Formato: [pregunta, [opciones], índice de la correcta (0-3), explicación]
+const DATA = [
+["Según la LFT (art. 58), la jornada de trabajo es:",
+ ["El tiempo en que el trabajador ejecuta materialmente las labores pactadas en su contrato","El periodo entre la entrada y la salida del centro de trabajo, sin contar los descansos","El tiempo durante el cual el trabajador está a disposición del patrón para prestar su trabajo","El horario fijado por el patrón en el reglamento interior para cada departamento"],2,
+ "El art. 58 la define como el tiempo en que el trabajador está a disposición del patrón, no solo el tiempo de trabajo efectivo."],
+["¿Cuál es la duración máxima de la jornada nocturna (8 pm a 6 am)?",
+ ["Seis horas","Siete horas","Siete horas y media","Ocho horas"],1,
+ "Art. 61: diurna 8 horas, nocturna 7 y mixta 7 horas y media."],
+["El tiempo extraordinario no puede exceder de:",
+ ["Tres horas diarias ni tres veces en una semana","Cuatro horas diarias ni tres veces en una semana","Tres horas diarias ni cuatro veces en una semana","Dos horas diarias ni cinco veces en una semana"],0,
+ "Art. 66: máximo 3 horas diarias y 3 veces por semana."],
+["¿Cómo se pagan las horas extra (arts. 67 y 68)?",
+ ["Con un 50% adicional sobre el salario de la hora ordinaria","Triple las primeras nueve horas semanales y doble las excedentes","Doble siempre, sin importar cuántas horas se trabajen en la semana","Doble las primeras nueve horas semanales y triple las que excedan"],3,
+ "Las primeras 9 horas extra a la semana se pagan al doble; las que excedan, al triple."],
+["La prima dominical mínima que debe pagarse al trabajador que labora en domingo es de:",
+ ["15% sobre el salario de un día ordinario","50% sobre el salario de un día ordinario","25% sobre el salario de un día ordinario","100% sobre el salario de un día ordinario"],2,
+ "Art. 71: prima no menor al 25% sobre el salario de un día ordinario."],
+["Si el trabajador labora en su día de descanso semanal, el patrón debe pagarle:",
+ ["Un salario doble por el servicio, además del salario que le corresponde por el descanso","Solamente un 50% adicional al salario ordinario de ese día","El salario de un día ordinario más la prima dominical del 25%","Un salario triple por el servicio, sin considerar el salario del descanso"],0,
+ "Art. 73: salario doble por el servicio, independientemente del salario del descanso (en la práctica, el equivalente a tres días)."],
+["¿Cuál de las siguientes fechas NO es día de descanso obligatorio según el art. 74?",
+ ["1 de enero","16 de septiembre","25 de diciembre","12 de diciembre"],3,
+ "El 12 de diciembre no está en el art. 74. Sí lo están: 1 de enero, primer lunes de febrero, tercer lunes de marzo, 1 de mayo, 16 de septiembre, tercer lunes de noviembre, 25 de diciembre y 1 de octubre cada seis años."],
+["Tras la reforma de 2023 (vacaciones dignas), ¿cuántos días laborables de vacaciones corresponden al cumplir el primer año de servicios?",
+ ["Seis días","Doce días","Diez días","Catorce días"],1,
+ "Art. 76: 12 días laborables al primer año, con aumento de 2 días por año hasta llegar a 20 al quinto año."],
+["¿Cuántos días de vacaciones corresponden a un trabajador que cumple seis años de servicios?",
+ ["Veinte días","Dieciocho días","Veintidós días","Veinticuatro días"],2,
+ "Del año 1 al 5 se pasa de 12 a 20 días; a partir del sexto año se suman 2 días por cada cinco años, así que del 6.º al 10.º año son 22."],
+["La prima vacacional no puede ser menor a:",
+ ["25% sobre los salarios correspondientes al periodo vacacional","15% sobre los salarios correspondientes al periodo vacacional","30% sobre el salario mensual del trabajador","50% sobre los salarios correspondientes al periodo vacacional"],0,
+ "Art. 80: prima vacacional mínima del 25%."],
+["¿En qué plazo deben concederse las vacaciones, contado desde que se cumple el año de servicios?",
+ ["Dentro de los tres meses siguientes","Dentro de los doce meses siguientes","Dentro de los treinta días siguientes","Dentro de los seis meses siguientes"],3,
+ "Art. 81: dentro de los seis meses siguientes al cumplimiento del año de servicios. Además, el art. 78 exige que al menos seis días sean continuos."],
+["Según el art. 90, el salario mínimo es:",
+ ["La cantidad mayor que puede pagarse por jornada, fijada cada año por el Ejecutivo estatal","La cantidad menor que debe recibir en efectivo el trabajador por los servicios de una jornada","El promedio de ingresos diarios del trabajador durante los últimos treinta días laborados","La cuota diaria pactada en el contrato más las prestaciones en especie recibidas"],1,
+ "Art. 90: la cantidad menor que debe recibir en efectivo por una jornada. Debe bastar para las necesidades de un jefe de familia y la educación obligatoria de los hijos."],
+["¿Cada cuánto debe pagarse el salario (art. 88)?",
+ ["Plazos no mayores de una semana (trabajo material) o quince días (los demás)","Plazos no mayores de quince días (trabajo material) o un mes (los demás)","Plazos no mayores de una semana para todos los trabajadores sin distinción","Plazos no mayores de un mes para todos los trabajadores sin distinción"],0,
+ "Art. 88: semanal para quienes realizan trabajo material y quincenal para los demás."],
+["Para descontar deudas contraídas con el patrón (anticipos, pagos en exceso, errores), el descuento no puede ser mayor al:",
+ ["50% del salario total de cada pago","20% del salario total de cada pago","30% del excedente del salario mínimo","10% del salario mínimo vigente"],2,
+ "Art. 110, fr. I: la deuda no puede exceder de un mes de salario y el descuento no puede ser mayor al 30% del excedente del salario mínimo."],
+["El aguinaldo mínimo legal y su fecha límite de pago son:",
+ ["15 días de salario, antes del 31 de diciembre","15 días de salario, antes del 20 de diciembre","30 días de salario, antes del 20 de diciembre","10 días de salario, antes del 15 de diciembre"],1,
+ "Art. 87: no menor de 15 días de salario, pagadero antes del 20 de diciembre. Quienes no cumplieron el año reciben la parte proporcional."],
+["La PTU debe pagarse dentro de:",
+ ["Los treinta días siguientes al cierre del ejercicio fiscal","Los noventa días siguientes al cierre del ejercicio fiscal","Los quince días siguientes a la presentación de la declaración mensual","Los sesenta días siguientes a la fecha en que deba pagarse el impuesto anual"],3,
+ "Art. 122: 60 días después de la fecha límite de la declaración anual (en la práctica, hasta el 30 de mayo para personas morales y el 29 de junio para personas físicas)."],
+["Desde la reforma de 2021, el tope individual de la PTU es de:",
+ ["Tres meses de salario o el promedio de la PTU de los últimos tres años, lo que sea más favorable","Un mes de salario o el promedio de la PTU de los últimos tres años, lo que sea menor","Seis meses de salario, sin considerar el promedio de años anteriores","Quince días de salario más el promedio de la PTU del año anterior"],0,
+ "Art. 127, fr. VIII: tope de tres meses de salario o el promedio recibido en los últimos tres años, aplicando el monto más favorable al trabajador."],
+["¿Desde qué edad está permitido el trabajo de menores en México?",
+ ["Catorce años, con permiso de los padres","Dieciséis años, con certificado médico únicamente","Quince años, con autorización y requisitos adicionales","Dieciocho años, sin ninguna excepción"],2,
+ "Art. 22: está prohibido el trabajo de menores de 15 años. De 15 a 17 se requiere certificado médico, autorización de padres o tutores y cumplir con la educación obligatoria, o contar con aprobación de la Inspección del Trabajo."],
+["La jornada máxima de los menores de 16 años es de:",
+ ["Seis horas continuas, sin periodos de reposo","Seis horas diarias, en periodos máximos de tres con reposo de una hora","Siete horas diarias, en periodos máximos de cuatro con reposo de media hora","Ocho horas diarias, con reposo de una hora a mitad de la jornada"],1,
+ "Art. 177: seis horas diarias en periodos de máximo tres horas, con reposo de al menos una hora entre ellos. No pueden laborar horas extra ni domingos ni días de descanso (art. 178)."],
+["Los menores de 18 años tienen derecho a vacaciones anuales pagadas de, por lo menos:",
+ ["Doce días laborables","Quince días laborables","Veinte días laborables","Dieciocho días laborables"],3,
+ "Art. 179: vacaciones de 18 días laborables como mínimo."],
+["El descanso por maternidad comprende:",
+ ["Seis semanas antes y seis semanas después del parto","Cuatro semanas antes y ocho semanas después del parto","Seis semanas únicamente después del parto","Ocho semanas antes y cuatro semanas después del parto"],0,
+ "Art. 170, fr. II. Puede transferirse hasta cuatro semanas del descanso previo al posterior al parto, con autorización médica y acuerdo con el patrón."],
+["Durante el periodo de lactancia, las madres tienen derecho a:",
+ ["Un reposo de una hora diaria, durante nueve meses","Dos reposos de una hora cada uno, durante un año","Dos reposos extraordinarios de media hora al día, hasta por seis meses","Un reposo de media hora al día, durante tres meses"],2,
+ "Art. 170, fr. IV: dos reposos extraordinarios de media hora por día, por un periodo no mayor de seis meses."],
+["Según el art. 279, los trabajadores del campo son:",
+ ["Quienes laboran únicamente en temporadas de cosecha y son contratados por intermediarios","Quienes ejecutan los trabajos propios y habituales de agricultura, ganadería y forestales al servicio de un patrón","Quienes son propietarios de la tierra y la trabajan con ayuda de su familia","Quienes prestan servicios en empacadoras y bodegas agrícolas, aunque no trabajen la tierra"],1,
+ "Art. 279. Los eventuales del campo están regulados aparte (art. 279 Bis) y tienen derecho a prestaciones proporcionales y al IMSS."],
+["Según el art. 9, la categoría de trabajador de confianza depende de:",
+ ["La designación o el nombre que se dé al puesto en el contrato","El nivel de salario que perciba en relación con los demás trabajadores","La antigüedad del trabajador y su cercanía con el patrón","La naturaleza de las funciones desempeñadas, no del nombre del puesto"],3,
+ "Art. 9: son funciones de confianza las de dirección, inspección, vigilancia y fiscalización con carácter general, y las de trabajos personales del patrón dentro de la empresa."],
+["Los agentes de comercio, vendedores, viajantes y propagandistas son trabajadores de la empresa cuando:",
+ ["Su actividad sea de carácter permanente","Perciban un salario fijo mensual además de comisiones","Trabajen exclusivamente para un solo patrón","Sus ventas superen un monto mínimo mensual pactado"],0,
+ "Art. 285: son trabajadores de la empresa cuando su actividad sea de carácter permanente; si es transitoria no se les aplica este capítulo."],
+["En el trabajo de autotransportes (arts. 256 y ss.), el salario puede fijarse por unidad de tiempo, por viaje, por boletos vendidos, por circuito o kilómetros recorridos, y:",
+ ["Puede ser inferior al mínimo si el trabajador recibe propinas","Solo puede pagarse en especie cuando el viaje es foráneo","No puede ser inferior al salario mínimo","Se fija libremente por el permisionario sin límite alguno"],2,
+ "Art. 257: el salario puede ser cantidad fija, prima sobre ingresos o una combinación, pero nunca inferior al mínimo."],
+["En Ensenada, B.C., ¿qué salario mínimo se aplica?",
+ ["El salario mínimo general del resto del país","El de la Zona Libre de la Frontera Norte","El que fije el municipio cada año según su inflación local","El salario mínimo profesional, que sustituye al general"],1,
+ "Los municipios de Baja California, incluido Ensenada, están en la Zona Libre de la Frontera Norte, con un salario mínimo mayor al general. Verifica la cifra vigente de la CONASAMI."],
+["Antes de demandar ante el Tribunal Laboral en Baja California, ¿qué instancia es obligatoria en la mayoría de los conflictos individuales?",
+ ["La Junta Local de Conciliación y Arbitraje del Estado","La Procuraduría Federal de la Defensa del Trabajo","La Inspección del Trabajo de la Secretaría del Trabajo estatal","El Centro de Conciliación Laboral del Estado de Baja California"],3,
+ "Tras la reforma laboral de 2019, la conciliación prejudicial es obligatoria ante el Centro de Conciliación Laboral (con sede en Ensenada); las Juntas de Conciliación y Arbitraje desaparecieron. Hay excepciones, como discriminación, trabajo infantil y protección a la maternidad."]
+];
 
-const state = {
-  current: "1",
-  answers: { "1": {}, "2": {} },
-  graded: { "1": false, "2": false },
-  order: { "1": null, "2": null },
-  shuffled: { "1": false, "2": false }
-};
+const app = document.getElementById('app');
+let qs, i, score, wrong;
 
-function identityOrder(f) {
-  return DATA[f].map(function (_, i) { return i; });
-}
-state.order["1"] = identityOrder("1");
-state.order["2"] = identityOrder("2");
-
-function shuffleOrder(f) {
-  const a = identityOrder(f);
-  for (let i = a.length - 1; i > 0; i--) {
-    const j = Math.floor(Math.random() * (i + 1));
-    const t = a[i]; a[i] = a[j]; a[j] = t;
+function shuffle(a) {
+  a = a.slice();
+  for (let k = a.length - 1; k > 0; k--) {
+    const j = Math.floor(Math.random() * (k + 1));
+    [a[k], a[j]] = [a[j], a[k]];
   }
-  state.order[f] = a;
-  state.shuffled[f] = true;
+  return a;
 }
 
-const qlist = document.getElementById("qlist");
-const bar = document.getElementById("bar");
-const count = document.getElementById("count");
-const resultBox = document.getElementById("result");
-const scoreEl = document.getElementById("score");
-const detailEl = document.getElementById("detail");
-const kicker = document.getElementById("kicker");
-const gradeBtn = document.getElementById("grade");
-const resetBtn = document.getElementById("reset");
-const examForm = document.getElementById("exam");
+function start() {
+  // Mezcla el orden de las preguntas y de las opciones en cada intento
+  qs = shuffle(DATA).map(([p, opts, c, e]) => {
+    const correct = opts[c];
+    return { p, opts: shuffle(opts), correct, e };
+  });
+  i = 0; score = 0; wrong = [];
+  render();
+}
 
 function render() {
-  const f = state.current;
-  const qs = DATA[f];
-  const graded = state.graded[f];
-  const ans = state.answers[f];
-  kicker.textContent = "Formulario " + f + " · " + qs.length + " preguntas";
-  qlist.textContent = "";
-  state.order[f].map(function (idx) { return qs[idx]; }).forEach(function (q, i) {
-    const fs = document.createElement("fieldset");
-    fs.className = "q" + (graded ? " graded" : "");
-    const lg = document.createElement("legend");
-    lg.textContent = (i + 1) + ". " + q.text;
-    fs.appendChild(lg);
-    const opts = document.createElement("div");
-    opts.className = "opts";
-    q.options.forEach(function (o) {
-      const lab = document.createElement("label");
-      lab.className = "opt";
-      const inp = document.createElement("input");
-      inp.type = "radio";
-      inp.name = "f" + f + "-q" + q.n;
-      inp.id = "f" + f + "-q" + q.n + "-" + o.letter;
-      inp.value = o.letter;
-      inp.checked = ans[q.n] === o.letter;
-      inp.disabled = graded;
-      const body = document.createElement("span");
-      body.className = "opt-body";
-      const l = document.createElement("span");
-      l.className = "letter";
-      l.textContent = o.letter + ")";
-      const t = document.createElement("span");
-      t.className = "otext";
-      t.textContent = o.text;
-      body.appendChild(l);
-      body.appendChild(t);
-      if (graded) {
-        const isCorrect = o.letter === q.correct;
-        const chosen = ans[q.n] === o.letter;
-        if (isCorrect) {
-          lab.classList.add("is-correct");
-          const tg = document.createElement("span");
-          tg.className = "tag";
-          tg.textContent = chosen ? "Correcta · tu respuesta" : "Correcta";
-          body.appendChild(tg);
-        } else if (chosen) {
-          lab.classList.add("is-wrong");
-          const tg = document.createElement("span");
-          tg.className = "tag";
-          tg.textContent = "Tu respuesta";
-          body.appendChild(tg);
-        }
-      }
-      lab.appendChild(inp);
-      lab.appendChild(body);
-      opts.appendChild(lab);
-    });
-    fs.appendChild(opts);
-    if (graded && !ans[q.n]) {
-      const p = document.createElement("p");
-      p.className = "note miss";
-      p.textContent = "Sin responder.";
-      fs.appendChild(p);
-    }
-    qlist.appendChild(fs);
+  if (i >= qs.length) return finish();
+  const q = qs[i];
+  app.innerHTML = `
+    <div class="bar"><div style="width:${(i / qs.length) * 100}%"></div></div>
+    <div class="meta"><span>Pregunta ${i + 1} de ${qs.length}</span><span>Aciertos: ${score}</span></div>
+    <p class="q">${q.p}</p>
+    <div id="opts"></div>
+    <div id="fb"></div>`;
+  const box = document.getElementById('opts');
+  q.opts.forEach(text => {
+    const b = document.createElement('button');
+    b.className = 'opt';
+    b.textContent = text;
+    b.onclick = () => answer(b, text);
+    box.appendChild(b);
   });
-  updateProgress();
-  updateResult();
-  gradeBtn.hidden = graded;
-  resetBtn.textContent = graded ? "Reintentar" : "Borrar respuestas";
-  document.getElementById("toolbar").hidden = graded;
-  document.getElementById("order-label").textContent = state.shuffled[f] ? "Orden: aleatorio" : "Orden: original";
-  document.getElementById("original").disabled = !state.shuffled[f];
-  document.getElementById("tab-1").setAttribute("aria-selected", String(f === "1"));
-  document.getElementById("tab-2").setAttribute("aria-selected", String(f === "2"));
 }
 
-function updateProgress() {
-  const f = state.current;
-  const total = DATA[f].length;
-  const done = Object.keys(state.answers[f]).length;
-  bar.style.width = (done / total * 100) + "%";
-  count.textContent = done + " / " + total + " respondidas";
-}
-
-function updateResult() {
-  const f = state.current;
-  if (!state.graded[f]) { resultBox.hidden = true; return; }
-  const qs = DATA[f];
-  let right = 0, blank = 0;
-  qs.forEach(function (q) {
-    const a = state.answers[f][q.n];
-    if (!a) blank++;
-    else if (a === q.correct) right++;
+function answer(btn, text) {
+  const q = qs[i];
+  const good = text === q.correct;
+  if (good) score++; else wrong.push(q);
+  document.querySelectorAll('.opt').forEach(b => {
+    b.disabled = true;
+    if (b.textContent === q.correct) b.classList.add('ok');
   });
-  const wrong = qs.length - right - blank;
-  const pct = Math.round(right / qs.length * 100);
-  scoreEl.textContent = "";
-  scoreEl.appendChild(document.createTextNode(right + " de " + qs.length));
-  const sm = document.createElement("small");
-  sm.textContent = pct + "%";
-  scoreEl.appendChild(sm);
-  detailEl.textContent = right + " correctas · " + wrong + " incorrectas · " + blank + " sin responder";
-  resultBox.hidden = false;
+  if (!good) btn.classList.add('bad');
+  document.getElementById('fb').innerHTML = `
+    <div class="exp"><b class="${good ? 'ok' : 'bad'}">${good ? '¡Correcto!' : 'Incorrecto.'}</b> ${q.e}</div>
+    <button class="main" id="next">${i + 1 < qs.length ? 'Siguiente' : 'Ver resultado'}</button>`;
+  document.getElementById('next').onclick = () => { i++; render(); };
 }
 
-function resetCurrent() {
-  state.answers[state.current] = {};
-  state.graded[state.current] = false;
-  render();
-  window.scrollTo(0, 0);
+function finish() {
+  const pct = Math.round((score / qs.length) * 100);
+  app.innerHTML = `
+    <div class="bar"><div style="width:100%"></div></div>
+    <p class="q">Resultado final</p>
+    <div class="score">${score} / ${qs.length} (${pct}%)</div>
+    ${wrong.length ? `<p>Para repasar:</p><ul class="rev">${wrong.map(q => `<li><b>${q.p}</b><br>${q.correct}</li>`).join('')}</ul>` : '<p>¡Sin errores!</p>'}
+    <button class="main" id="again">Intentar de nuevo</button>`;
+  document.getElementById('again').onclick = start;
 }
 
-qlist.addEventListener("change", function (e) {
-  const t = e.target;
-  if (t && t.type === "radio" && !state.graded[state.current]) {
-    const m = /-q(\d+)$/.exec(t.name);
-    if (m) {
-      state.answers[state.current][m[1]] = t.value;
-      updateProgress();
-    }
-  }
-});
-
-examForm.addEventListener("submit", function (e) {
-  e.preventDefault();
-  state.graded[state.current] = true;
-  render();
-  window.scrollTo(0, 0);
-});
-
-document.getElementById("shuffle").addEventListener("click", function () {
-  shuffleOrder(state.current);
-  render();
-  window.scrollTo(0, 0);
-});
-document.getElementById("original").addEventListener("click", function () {
-  state.order[state.current] = identityOrder(state.current);
-  state.shuffled[state.current] = false;
-  render();
-  window.scrollTo(0, 0);
-});
-
-resetBtn.addEventListener("click", resetCurrent);
-document.getElementById("retry-top").addEventListener("click", resetCurrent);
-
-document.querySelectorAll(".tab").forEach(function (b) {
-  b.addEventListener("click", function () {
-    const f = b.getAttribute("data-form");
-    if (f === state.current) return;
-    state.current = f;
-    try { history.replaceState(null, "", "#formulario-" + f); } catch (err) { location.hash = "formulario-" + f; }
-    render();
-    window.scrollTo(0, 0);
-  });
-});
-
-function fromHash() {
-  const m = /^#formulario-([12])$/.exec(location.hash);
-  const f = m ? m[1] : "1";
-  if (f !== state.current) { state.current = f; render(); }
-}
-window.addEventListener("hashchange", fromHash);
-
-(function init() {
-  const m = /^#formulario-([12])$/.exec(location.hash);
-  if (m) state.current = m[1];
-  render();
-})();
+start();
 </script>
-
 </body>
 </html>
-
-
